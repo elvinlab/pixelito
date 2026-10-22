@@ -38,7 +38,7 @@
 | 12 | Draft plain-language terms and privacy notice, plus a copyright contact. First drafts written 2026-10-22: [terms](drafts/terms.md), [privacy](drafts/privacy.md); open points for a lawyer listed in each; `[CONTACT]` address still to create | Drafts for the beta |
 | 13 | Visual direction: logo, palette, pixel-art trophy style, slogan options | Mood board and tokens |
 | 14 | Benchmark on target devices | Measured FPS, latency, load time |
-| 15 | Measure verification timings of the first pipeline against the ADR 0002 budgets (T0 to T3) | Timings recorded; budgets adjusted or fixed |
+| 15 | Measure verification timings of the first pipeline against the ADR 0002 budgets (T0 to T3) | Timings recorded; budgets adjusted or fixed. First data point 2026-10-22: `pixelito-protocol` CI (GitHub Actions, Node 24, no install step, 17 tests) ran green in **8 s** wall clock on `develop`; actions pinned by commit SHA; no branch protection yet; the app monorepo has no CI |
 | 16 | Set up `pixelito-protocol` (MIT) with the versioned schema and contract tests | Shared package consumed by app and emulator host. First pass: local folder `../pixelito-protocol` (not a git repo yet): zero dependencies, 17 contract tests pass, 5 of 5 deliberate breakages caught; not yet consumed by anything |
 
 ## Exit gate
