@@ -1,1 +1,1 @@
-export { EmulatorFrame } from './EmulatorFrame'
+export { PlayScreen } from './PlayScreen'

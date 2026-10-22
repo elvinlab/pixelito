@@ -1,9 +1,19 @@
 import { envelope, isTrustedSender, parseMessage } from 'pixelito-protocol'
-import { type RefObject, useEffect, useState } from 'react'
+import { type RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { EMULATOR_ORIGIN } from '@/config'
 
 /** Where the emulator is, seen from the host. */
 export type EmulatorState = 'loading' | 'ready' | 'started'
+
+/** Whether a key goes down or comes up. */
+export type KeyAction = 'down' | 'up'
+
+/** What a screen gets from the bridge. */
+export interface EmulatorBridge {
+  readonly state: EmulatorState
+  /** Sends a key to the emulator. Ignored until the emulator says `ready`. */
+  readonly sendKey: (action: KeyAction, code: string) => void
+}
 
 /**
  * Talks to the emulator iframe with the Pixelito protocol.
@@ -11,8 +21,21 @@ export type EmulatorState = 'loading' | 'ready' | 'started'
  * Sends `hello` when the frame loads, accepts only messages from the emulator
  * origin and window, and validates each one before using it.
  */
-export function useEmulatorBridge(frameRef: RefObject<HTMLIFrameElement | null>): EmulatorState {
+export function useEmulatorBridge(frameRef: RefObject<HTMLIFrameElement | null>): EmulatorBridge {
   const [state, setState] = useState<EmulatorState>('loading')
+  const stateRef = useRef(state)
+  stateRef.current = state
+
+  const sendKey = useCallback(
+    (action: KeyAction, code: string) => {
+      if (stateRef.current === 'loading') return
+      frameRef.current?.contentWindow?.postMessage(
+        envelope({ type: 'key', action, code }),
+        EMULATOR_ORIGIN,
+      )
+    },
+    [frameRef],
+  )
 
   useEffect(() => {
     const frame = frameRef.current
@@ -37,5 +60,5 @@ export function useEmulatorBridge(frameRef: RefObject<HTMLIFrameElement | null>)
     }
   }, [frameRef])
 
-  return state
+  return { state, sendKey }
 }

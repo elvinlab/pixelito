@@ -1,12 +1,15 @@
-import { PRODUCT_NAME } from '@/config'
-import { EmulatorFrame } from '@/features/play'
+import { NotFoundScreen } from '@/app/NotFoundScreen'
+import { useRoute } from '@/app/router'
+import { findGame, LibraryScreen } from '@/features/library'
+import { PlayScreen } from '@/features/play'
 
-/** Root component of the app shell. Placeholder until the library and play screens exist. */
+/** Root component: shows the screen the URL hash asks for. */
 export function App() {
-  return (
-    <main>
-      <h1>{PRODUCT_NAME}</h1>
-      <EmulatorFrame jar="game.jar" />
-    </main>
-  )
+  const route = useRoute()
+  if (route.name === 'library') return <LibraryScreen />
+  if (route.name === 'play') {
+    const game = findGame(route.gameId)
+    return game ? <PlayScreen game={game} /> : <NotFoundScreen />
+  }
+  return <NotFoundScreen />
 }

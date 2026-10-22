@@ -1,0 +1,40 @@
+/* Design tokens. Provisional: see docs/notes/visual-direction.md. */
+:root {
+  color-scheme: dark;
+
+  --page: #07070f;
+  --banner: #0a0816;
+  --card: #121022;
+  --card-hover: #1d1934;
+  --control-edge: #6d63a8;
+  --line: #3b3560;
+
+  --text: #eceff4;
+  --text-secondary: #c3c9d4;
+  --text-muted: #8b949e;
+
+  --violet: #a78bfa;
+  --button: #7c3aed;
+  --button-edge: #4c1d95;
+  --cyan: #22d3ee;
+  --pink: #ec4899;
+  --playable: #34d399;
+  --partial: #fbbf24;
+  --does-not-run: #fb7185;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --target: 44px;
+  --border: 2px solid var(--line);
+
+  /* Fonts are system fallbacks until the brand fonts are self-hosted. */
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-display: "Pixelify Sans", "IBM Plex Sans", system-ui, sans-serif;
+  --font-pixel: "Press Start 2P", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}

@@ -1,0 +1,31 @@
+.badge {
+  --status: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border: 2px solid var(--status);
+  color: var(--status);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--status);
+}
+
+.playable {
+  --status: var(--playable);
+}
+.partial {
+  --status: var(--partial);
+}
+.does-not-run {
+  --status: var(--does-not-run);
+}
+.untested {
+  --status: var(--text-muted);
+}

@@ -1,12 +1,37 @@
-:root {
-  --page: #07070f;
-  --text: #eceff4;
-  color-scheme: dark;
+/* biome-ignore-all lint/complexity/noImportantStyles: the reduced-motion reset must beat component rules */
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  min-height: 100dvh;
   background: var(--page);
   color: var(--text);
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }

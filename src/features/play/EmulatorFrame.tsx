@@ -1,31 +1,32 @@
-import { useRef } from 'react'
+import type { Ref } from 'react'
 import { EMULATOR_ORIGIN } from '@/config'
-import { useEmulatorBridge } from './useEmulatorBridge'
 
 interface EmulatorFrameProps {
-  /** File name of a game inside the emulator's `jar/` folder. Never pass user input here. */
+  /** File name of a game inside the emulator's `jar/` folder. Catalogue data only, never user input. */
   readonly jar: string
+  readonly frameRef: Ref<HTMLIFrameElement>
+  readonly state: string
+  readonly title: string
+  readonly className?: string | undefined
 }
 
-const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches
+const SAFE_JAR = /^[a-z0-9-]+\.jar$/
 
 /**
- * Embeds the emulator for one game. The emulator's `jar` parameter is not sanitized upstream.
- * On touch devices it also asks for the emulator's own on-screen keypad (`mobile=1`).
+ * Embeds the emulator for one game. The emulator's `jar` parameter is not sanitized
+ * upstream, so a name that is not plain catalogue-style is refused here too.
  */
-export function EmulatorFrame({ jar }: EmulatorFrameProps) {
-  const frameRef = useRef<HTMLIFrameElement>(null)
-  const state = useEmulatorBridge(frameRef)
-  const mobile = isTouchDevice() ? '&mobile=1' : ''
-  const src = `${EMULATOR_ORIGIN}/run.html?jar=${encodeURIComponent(jar)}${mobile}`
+export function EmulatorFrame({ jar, frameRef, state, title, className }: EmulatorFrameProps) {
+  if (!SAFE_JAR.test(jar)) throw new Error(`Refusing unsafe jar name: ${jar}`)
+  const src = `${EMULATOR_ORIGIN}/run.html?jar=${encodeURIComponent(jar)}`
   return (
     <iframe
       ref={frameRef}
+      className={className}
       data-emulator-state={state}
-      title="Game"
+      title={title}
       src={src}
       allow="autoplay; fullscreen"
-      style={{ width: '100%', height: '70dvh', border: 0, background: '#000' }}
     />
   )
 }
