@@ -23,3 +23,17 @@ Working slogan (draft, not final): *The games we grew up with. The achievements 
 3. Free to play, free to start. The only planned initial cost is the domain.
 4. Measure before promising: compatibility and performance claims need evidence.
 5. Legal by design: no hosting of third-party game files.
+
+## Development
+
+Tools are pinned in `.mise.toml` (Node, pnpm); run `mise install` once.
+
+| Command | What it does |
+|---|---|
+| `pnpm install` | Install dependencies. `pnpm-workspace.yaml` sets `minimumReleaseAge: 10080`, so versions younger than 7 days are refused |
+| `pnpm dev` | Start the Vite dev server |
+| `pnpm check` | Biome (lint + format check) and TypeScript strict typecheck |
+| `pnpm format` | Apply Biome fixes and formatting |
+| `pnpm build` | Typecheck and build to `dist/` |
+
+Code conventions: TypeScript strict (plus `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`), `@/` alias for cross-folder imports, TSDoc (`/** */`) on every exported symbol saying what it is for, not how it works. Architecture rules are in ADR 0002.
