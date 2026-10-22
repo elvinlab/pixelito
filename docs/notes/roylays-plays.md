@@ -28,3 +28,14 @@ No mention of persistent saves with export, platform achievements or accounts. T
 ## Next
 
 Open the live app once (a browser visit, no uploads) to see how its saves and library behave, and note anything that changes the Pixelito scope.
+
+## Live app, first look (2026-10-22, headless Chromium, fresh profile, read only)
+
+Opened `roylays.github.io/Roylays-Plays/web/` on a 1280×800 and a 390×844 viewport. Nothing was uploaded or played.
+
+- **Loading:** a branded splash with two phases, "Preparing engine…" then "Loading games…". The real interface appeared after about **8.1 s on desktop and 6.5 s on the phone viewport** (my check only waited for the first phase to end, so the desktop figure may include part of the second; one run each, fresh profile, not comparable with the numbers in `freej2me-web.md`). On the phone viewport a modal then asked to enter fullscreen ("No" or "Yes!").
+- **Structure seen in the page:** Home, My Games, Add Game, History, Favorites, Controls, About, Settings, Import Data, Export Data, a control scheme selector (first value "Classical"), Fullscreen.
+- **Platform bits:** it registers a service worker (`serviceWorker` available) and has **no web app manifest** (no `link rel=manifest`), so it is not installable as a PWA by that signal. It loads fonts from Google Fonts, a library from cdnjs and the runtime from `cjrtnc.leaningtech.com` (CheerpJ).
+- **Takeaways for Pixelito (ideas only):** a splash hides but does not remove the 6 to 8 s start; the sidebar sections (history, favourites, controls test) match what we had as ideas; an installable manifest and offline shell would be a real difference; the fullscreen prompt is a pattern worth testing for phones. No code or art copied (GPLv3, see above).
+- **Not seen:** the interface behind the splash on desktop (screenshot caught the second splash), the controls screen, and any game running.
+
