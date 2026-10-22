@@ -1,0 +1,44 @@
+.group {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.option {
+  min-width: var(--target);
+  min-height: var(--target);
+  padding: 0 var(--space-3);
+  background: var(--card);
+  border: 2px solid var(--control-edge);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.option[aria-pressed="true"] {
+  background: var(--button);
+  border-color: var(--button);
+  color: #fff;
+}
+
+/* The full name only when there is room; the code is enough on a phone. */
+.name {
+  display: none;
+}
+
+@media (min-width: 560px) {
+  .name {
+    display: inline;
+  }
+}
