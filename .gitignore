@@ -10,3 +10,6 @@ out/
 .next/
 .codegraph/
 .impeccable/
+
+# Games for trying on one machine only (see src/features/library/catalog.ts)
+src/features/library/catalog.local.ts
