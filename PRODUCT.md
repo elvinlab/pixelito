@@ -16,7 +16,7 @@ Pixelito is a free, installable web app that plays J2ME `.jar` games in the brow
 
 ## Positioning
 
-(Inferred from ADR 0001, to confirm.) Existing J2ME-in-browser products only run a file; Pixelito adds free persistent saves, achievements and a library with honest compatibility status, in an app that feels like a mobile console.
+Confirmed by the owner, 2026-10-22: the two things that matter most are the console feel and playing fast. Pixelito is the easiest way to replay the J2ME games you grew up with: open it, be playing within seconds, in an app that feels like a handheld console. Free persistent saves, achievements and honest compatibility labels support that promise; they do not lead it. No claim about other products until it is checked against evidence.
 
 ## Operating Context
 
@@ -27,7 +27,7 @@ Pixelito is a free, installable web app that plays J2ME `.jar` games in the brow
 ## Capabilities and Constraints
 
 - Only legally clean content: freely licensed demo games and user-supplied `.jar` files that never leave the browser.
-- Compatibility labels: Playable, Partial, Broken, Untested (only a human grants Playable).
+- Compatibility labels: Playable, Partial, Does not run, Untested (only a human grants Playable).
 - MVP: play, local saves with guest mode, library, platform achievements, profile (with hours played, counted on the device), optional account. The account is offered after the first game, never as a wall before playing. Notifications are in-app (achievement toasts and a notification center); system push is out of scope.
 - Speed is a headline feature; budgets are enforced as CI gates.
 - Open decisions: control scheme, stack (Vite or Next.js), backend vendor.

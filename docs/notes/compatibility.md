@@ -9,7 +9,7 @@
 |---|---|
 | **Playable** | Starts, renders, responds to input, a full session works, and saves persist if the game has them |
 | **Partial** | Starts and is usable, but something named is wrong (sound, a screen, a control, saves, speed). The reason is shown |
-| **Broken** | Does not start, crashes, or cannot be controlled |
+| **Does not run** | Does not start, crashes, or cannot be controlled |
 | **Untested** | No result yet. This is the default |
 
 Rules: a label belongs to a game **plus** a browser/device class (a game can be Playable on desktop Chromium and Untested on Android); a label has a date and the emulator build it was tested with; **only a human can grant Playable** (the smoke test can only rule things out or suggest Partial); an automated pass never upgrades a label by itself.
