@@ -7,11 +7,17 @@ interface EmulatorFrameProps {
   readonly jar: string
 }
 
-/** Embeds the emulator for one game. The emulator's `jar` parameter is not sanitized upstream. */
+const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches
+
+/**
+ * Embeds the emulator for one game. The emulator's `jar` parameter is not sanitized upstream.
+ * On touch devices it also asks for the emulator's own on-screen keypad (`mobile=1`).
+ */
 export function EmulatorFrame({ jar }: EmulatorFrameProps) {
   const frameRef = useRef<HTMLIFrameElement>(null)
   const state = useEmulatorBridge(frameRef)
-  const src = `${EMULATOR_ORIGIN}/run.html?jar=${encodeURIComponent(jar)}`
+  const mobile = isTouchDevice() ? '&mobile=1' : ''
+  const src = `${EMULATOR_ORIGIN}/run.html?jar=${encodeURIComponent(jar)}${mobile}`
   return (
     <iframe
       ref={frameRef}

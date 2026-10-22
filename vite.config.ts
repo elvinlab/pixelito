@@ -12,5 +12,5 @@ export default defineConfig({
       'pixelito-protocol': fromHere('../pixelito-protocol/src/protocol.ts'),
     },
   },
-  server: { fs: { allow: ['..'] } },
+  server: { fs: { allow: ['.', fromHere('../pixelito-protocol/src')] } },
 })
