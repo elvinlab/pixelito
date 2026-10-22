@@ -1,7 +1,7 @@
 # Notes — Next.js vs Vite SPA (Phase 0, task 4)
 
 - **Date:** 2026-10-22
-- **Status:** Second pass (size, then offline and install basics in Chromium). Not a recommendation yet.
+- **Status:** Second pass (size, then offline and install basics in Chromium). Owner decision recorded below (2026-10-22); the measurements are still partial.
 - **Method:** two minimal apps built in a scratch directory outside the repo (library list of three titles, two routes, React 19.3.1; Next 16.4.2 with `output: 'export'`; Vite 8.3.5 with `@vitejs/plugin-react` 6.1.2). The first pass used npm and the newest versions; the second pass **redid everything with pnpm 12.6.0** (owner confirmed pnpm, as in ADR 0002) and `minimumReleaseAge: 10080` (7 days) with no dependency build scripts allowed. The guardrail worked: pnpm refused `vite@8.3.5` (published 2026-10-21) and the app was pinned to `8.3.4`. Final versions: React 19.3.1, Next 16.4.2, Vite 8.3.4, `@vitejs/plugin-react` 6.1.2. Release age is not vetting; no changelog or advisory review was done.
 
 ## Measured
@@ -38,6 +38,14 @@ Lighthouse scores, real devices and slow networks, hydration cost, the effect of
 - A hybrid is possible later: a static marketing/catalogue site plus a SPA shell. This is a design question, not decided.
 - Fewer moving parts and a smaller JS bill fit the "speed is a headline feature" rule, but the Vite side needs a PWA layer (plugin or hand-written service worker) that has to be chosen and vetted.
 - Auth and backend are undecided (see `backend-options.md`); the framework choice should not lock them.
+
+## Decision (owner, 2026-10-22)
+
+- **The app is a Vite SPA.** Reasons: it is mostly client-side, it ships about 2.6 times less JavaScript than the Next static export in the spike, and speed is a headline feature. This is the owner's call, based on partial measurements (size and offline basics only).
+- **Search visibility matters, so a public site comes later.** The owner wants to be friendly to SEO. A client-rendered SPA serves an empty HTML shell, which is a weaker basis for indexing. Public pages (landing, catalogue, one page per game) will be a separate static site with real HTML and almost no JavaScript, built after the app. The landing page is the hook; the app is where the effort on speed goes. The static-site tool is not chosen (Astro is a candidate).
+- **Keep the root free for that site.** Put the app on its own subdomain (for example `app.<domain>`), so the landing can take the root later without breaking links or already-installed PWAs. The domain is not confirmed (task 10), so the name is a placeholder.
+- **Not decided:** the PWA layer (Serwist or `vite-plugin-pwa`; ADR 0002 lists it as open) and the backend. Neither choice may lock the other. Any dependency is vetted before adoption and respects the 7-day release-age rule.
+- **What could reopen this:** Lighthouse or phone measurements that contradict the size reading, or a requirement for indexed game pages at launch instead of later.
 
 ## Next
 
