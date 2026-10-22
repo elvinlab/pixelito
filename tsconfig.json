@@ -15,7 +15,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "types": ["vite/client"],
-    "paths": { "@/*": ["./src/*"] }
+    "paths": { "@/*": ["./src/*"], "pixelito-protocol": ["../pixelito-protocol/src/protocol.ts"] }
   },
   "include": ["src", "vite.config.ts"]
 }

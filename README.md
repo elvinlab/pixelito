@@ -37,3 +37,5 @@ Tools are pinned in `.mise.toml` (Node, pnpm); run `mise install` once.
 | `pnpm build` | Typecheck and build to `dist/` |
 
 Code conventions: TypeScript strict (plus `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`), `@/` alias for cross-folder imports, TSDoc (`/** */`) on every exported symbol saying what it is for, not how it works. Architecture rules are in ADR 0002.
+
+The play screen needs the emulator on a separate origin (default `http://127.0.0.1:5174`, override with `VITE_EMULATOR_ORIGIN`). For now `vite.config.ts` and `tsconfig.json` resolve `pixelito-protocol` from a sibling checkout at `../pixelito-protocol`.
