@@ -30,6 +30,12 @@
 - The `NullPointerException` in `fu.keyPressed` and `fu.keyReleased` appears in every run and is harmless there.
 - Still open: the owner's Chrome shows a blank game area with an orange bar near 93% and "LOADING", at the sound menu after pressing Start. It likely depends on real GPU or audio. Next: ask the owner for the browser console output (F12) at that moment, and try headed Chrome with a real GPU.
 
+## Blockers found while working alone (2026-10-28)
+
+- **No CI for the app yet, on purpose.** `vite.config.ts` aliases `pixelito-protocol` to `../pixelito-protocol/src/protocol.ts`, a sibling folder that does not exist on a CI runner, so a workflow would fail on every push. Fix first: make the protocol a real dependency (a git dependency pinned to a commit, or a published package), then copy the workflow of `pixelito-protocol` (actions pinned by SHA, `pnpm install --frozen-lockfile`, `pnpm check`). Needs the owner to say where the protocol is published; whether that repository is public was not checked.
+- **Export/import of saves** changes the protocol (a contract) and the fork; see `freej2me-web.md`. Not started.
+- ADR 0002 lists CI workflows as protected files: the owner approves them.
+
 ## Owner pending
 
 - Remove the firewall rule: `sudo ufw delete allow from 192.168.1.0/24 to any port 5173,5174 proto tcp`.
