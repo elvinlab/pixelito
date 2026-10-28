@@ -1,5 +1,5 @@
 import react from '@vitejs/plugin-react'
-import { defineConfig, type Plugin } from 'vite'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 import { PRODUCT_NAME } from './src/product'
 
 /** Emits the web app manifest, so the product name is read from one place. */
@@ -7,7 +7,7 @@ const manifest = (): Plugin => ({
   name: 'pixelito-manifest',
   generateBundle() {
     const icon = (size: number, purpose: string) => ({
-      src: `/icon-${size}.png`,
+      src: `icon-${size}.png`,
       sizes: `${size}x${size}`,
       type: 'image/png',
       purpose,
@@ -18,7 +18,7 @@ const manifest = (): Plugin => ({
       source: JSON.stringify({
         name: PRODUCT_NAME,
         short_name: PRODUCT_NAME,
-        start_url: '/',
+        start_url: './',
         display: 'standalone',
         background_color: '#07070f',
         theme_color: '#07070f',
@@ -30,7 +30,9 @@ const manifest = (): Plugin => ({
 
 const fromHere = (path: string) => new URL(path, import.meta.url).pathname
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  // Served from a sub-path on GitHub Pages; the workflow sets VITE_BASE.
+  base: loadEnv(mode, '.', 'VITE_').VITE_BASE ?? '/',
   plugins: [react(), manifest()],
   resolve: {
     alias: {
@@ -39,4 +41,4 @@ export default defineConfig({
       'pixelito-protocol': fromHere('./node_modules/pixelito-protocol/src/protocol.ts'),
     },
   },
-})
+}))

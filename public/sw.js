@@ -1,6 +1,8 @@
 // Pixelito app-shell worker: keeps the app itself available offline.
 // The emulator lives on another origin and is not handled here.
 const CACHE = 'pixelito-shell-v1'
+// The app may live under a sub-path, so the shell URL comes from the worker's scope.
+const SHELL = self.registration.scope
 
 self.addEventListener('install', () => self.skipWaiting())
 
@@ -23,10 +25,10 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then((response) => {
           const copy = response.clone()
-          caches.open(CACHE).then((cache) => cache.put('/', copy))
+          caches.open(CACHE).then((cache) => cache.put(SHELL, copy))
           return response
         })
-        .catch(() => caches.match('/')),
+        .catch(() => caches.match(SHELL)),
     )
     return
   }
