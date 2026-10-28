@@ -205,3 +205,11 @@ Observed in headless Chromium after playing Rally Master Pro up to the name scre
 - **Limits:** they belong to the emulator origin and that browser. Clearing site data, another browser or another device loses them, and Pixelito cannot see, export or import them yet.
 - **Not decided (needs the owner, and a change to the protocol and the fork):** an export/import path. A sketch: a protocol message pair `saves-export` and `saves-import` handled in `pixelito-bridge.js`, reading and writing that IndexedDB store directly. Import must happen before a game starts, because CheerpJ may hold files in memory while it runs. The same path would later feed cloud sync. The profile screen's "export saves" (see `visual-direction.md`) depends on it.
 - **Not verified:** that two different games never collide on keys (the key starts with the game's own name, taken from the jar), and the behavior when the same jar is renamed.
+
+## Preloading the JRE (2026-10-28)
+
+CheerpJ's `preloadResources` option fetches the runtime pieces a start needs up front and in parallel, instead of one range request at a time while Java runs. The list is what `cjGetRuntimeResources()` returns after a real start (saved here as `emulator-preload-resources.json`, 51 ranges of `rt.jar` plus a few small jars, for the CheerpJ build the emulator pins).
+
+- **Fork change (local only, `web/src/main.js`):** before `cheerpjInit`, `const preloadResources = await fetch('./preload-resources.json').then(r => r.json()).catch(() => ({}));` and pass `preloadResources` in the options. The file goes in `web/` next to `run.html`.
+- **Measured (headless Chromium, local emulator server, CheerpJ CDN over the real network):** cold first game 8.7 s before, **5.0 s** with it (three cold runs: 4.7, 5.1, 4.8 s). Combined with the library warm-up: **2.5 s**, against 4.1 s with the warm-up alone.
+- **Caveats:** the list was taken from GAEM only. A game that touches other JRE classes still fetches those on demand. The list is tied to the CheerpJ version in use; regenerate it when the emulator moves to a new CheerpJ build (a stale list fetches pieces that are not needed, which wastes data but does not break). Not measured on a real phone.
