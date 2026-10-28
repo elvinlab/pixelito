@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { LIBRARY_HREF } from '@/app/router'
 import type { Game } from '@/domain/game'
 import { useI18n } from '@/shared/i18n'
@@ -8,17 +8,28 @@ import { isForwardedKey, keyForGame } from './keys'
 import styles from './PlayScreen.module.css'
 import { type KeyAction, useEmulatorBridge } from './useEmulatorBridge'
 
+/** Milliseconds of loading after which the screen explains the wait. */
+const SLOW_LOAD_MS = 12_000
+
 /** The play screen: back link, title, the emulator and Pixelito's own keys. */
 export function PlayScreen({ game }: { readonly game: Game }) {
   const { t } = useI18n()
   const frameRef = useRef<HTMLIFrameElement>(null)
   const { state, sendKey: sendCode } = useEmulatorBridge(frameRef)
+  const [slow, setSlow] = useState(false)
+  const started = state === 'started'
   const sendKey = useCallback(
     (action: KeyAction, code: string) => {
       sendCode(action, keyForGame(code, game.confirmKey ?? 'enter'))
     },
     [sendCode, game.confirmKey],
   )
+
+  useEffect(() => {
+    if (started) return
+    const timer = setTimeout(() => setSlow(true), SLOW_LOAD_MS)
+    return () => clearTimeout(timer)
+  }, [started])
 
   useEffect(() => {
     const forward = (action: 'down' | 'up') => (event: KeyboardEvent) => {
@@ -52,7 +63,7 @@ export function PlayScreen({ game }: { readonly game: Game }) {
           title={t.play.screen}
           jar={game.emulatorJar}
         />
-        {state !== 'started' && <p className={styles.status}>{t.play.loading}</p>}
+        {!started && <p className={styles.status}>{slow ? t.play.slow : t.play.loading}</p>}
       </div>
       <Keypad onKey={sendKey} />
     </div>

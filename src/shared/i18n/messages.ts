@@ -9,6 +9,7 @@ const es = {
   play: {
     back: '← Biblioteca',
     loading: 'Cargando…',
+    slow: 'Tarda más de lo normal. La primera vez descarga el emulador.',
     screen: 'Pantalla del juego',
   },
   keys: {
@@ -57,6 +58,7 @@ const en: Messages = {
   play: {
     back: '← Library',
     loading: 'Loading…',
+    slow: 'Taking longer than usual. The first time it downloads the emulator.',
     screen: 'Game screen',
   },
   keys: {
