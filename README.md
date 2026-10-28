@@ -2,11 +2,11 @@
 
 A free, installable retro-console web app for playing J2ME (Java ME) games in the browser, with persistent saves, platform achievements and, later, a community.
 
-> **Status: planning. Everything in this repository is provisional.** Nothing here is a finished feature or a final decision. Each decision records its reason and the condition that reopens it.
+> **Status: Phase 0 spike with a working prototype. Everything in this repository is provisional.** The library, the play screen with Pixelito's own keys, Spanish and English strings, self-hosted fonts, an emulator warm-up and an installable offline shell exist; nothing here is a finished feature or a final decision. Each decision records its reason and the condition that reopens it.
 
 Working slogan (draft, not final): *The games we grew up with. The achievements we never had.*
 
-**Resuming work?** The current `Next step:` is at the top of [docs/phase-0-plan.md](docs/phase-0-plan.md). Branches: `main` (production) and `develop` (work).
+**Resuming work?** Read [docs/notes/session-handoff.md](docs/notes/session-handoff.md) first (state, how to run, open bugs, blockers), then the current `Next step:` at the top of [docs/phase-0-plan.md](docs/phase-0-plan.md). Branches: `main` (production) and `develop` (work).
 
 ## Documents
 
@@ -32,10 +32,16 @@ Tools are pinned in `.mise.toml` (Node, pnpm); run `mise install` once.
 |---|---|
 | `pnpm install` | Install dependencies. `pnpm-workspace.yaml` sets `minimumReleaseAge: 10080`, so versions younger than 7 days are refused |
 | `pnpm dev` | Start the Vite dev server |
-| `pnpm check` | Biome (lint + format check) and TypeScript strict typecheck |
+| `pnpm check` | Biome (lint + format check), TypeScript strict typecheck and the Vitest tests |
+| `pnpm test` | Only the Vitest tests |
 | `pnpm format` | Apply Biome fixes and formatting |
 | `pnpm build` | Typecheck and build to `dist/` |
+| `pnpm preview` | Serve the production build (the service worker registers only there) |
 
 Code conventions: TypeScript strict (plus `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`), `@/` alias for cross-folder imports, TSDoc (`/** */`) on every exported symbol saying what it is for, not how it works. Architecture rules are in ADR 0002.
 
 The play screen needs the emulator on a separate origin (default `http://127.0.0.1:5174`, override with `VITE_EMULATOR_ORIGIN`). For now `vite.config.ts` and `tsconfig.json` resolve `pixelito-protocol` from a sibling checkout at `../pixelito-protocol`.
+
+Games for trying on one machine only go in `src/features/library/catalog.local.ts`, which is git-ignored (same shape as `catalog.ts`, exporting `LOCAL_GAMES`; a game may set `confirmKey: 'five'` when it only reacts to 5). Never commit commercial games.
+
+The emulator is a separate project (a fork of `freej2me-web`) that is not published yet; how to run it locally, and what the fork needs, is in [docs/notes/freej2me-web.md](docs/notes/freej2me-web.md) and the handoff note.
