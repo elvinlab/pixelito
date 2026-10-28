@@ -197,3 +197,11 @@ Measured in headless Chromium against a local emulator server: a cold first game
 - **Pixelito side:** `EmulatorWarmup` (`src/features/play`) mounts a hidden frame on the library screen when the browser is idle, skips it when `saveData` is on or the connection is `3g` or slower (`shouldWarmUp`), and removes the frame on the `done` message from the emulator origin or after 60 s.
 - **Result (end to end, same machine):** first game 8.7 s without the library visit, 4.1 s after the warm-up finished. The remaining time is the part of the JRE that only downloads when Java code runs.
 - **Open:** warming the JRE chunks too (would need running a trivial class), and measuring on a real phone and network.
+
+## Where saves live (2026-10-28)
+
+Observed in headless Chromium after playing Rally Master Pro up to the name screen: the emulator origin has one IndexedDB database, `cjFS_/files/`, with a `files` store of 14 keys, among them `/Rally Master Pro/rms` and `/Rally Master Pro/rms/FL_RMP_OPT`. So **the game's saves (J2ME record stores) already persist between sessions in that browser**, keyed by the game's own name, with no change to the fork.
+
+- **Limits:** they belong to the emulator origin and that browser. Clearing site data, another browser or another device loses them, and Pixelito cannot see, export or import them yet.
+- **Not decided (needs the owner, and a change to the protocol and the fork):** an export/import path. A sketch: a protocol message pair `saves-export` and `saves-import` handled in `pixelito-bridge.js`, reading and writing that IndexedDB store directly. Import must happen before a game starts, because CheerpJ may hold files in memory while it runs. The same path would later feed cloud sync. The profile screen's "export saves" (see `visual-direction.md`) depends on it.
+- **Not verified:** that two different games never collide on keys (the key starts with the game's own name, taken from the jar), and the behavior when the same jar is renamed.
