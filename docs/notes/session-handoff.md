@@ -1,7 +1,7 @@
 # Notes — Session handoff (2026-10-22)
 
 - **Purpose:** pick up in a new session without the chat. Everything here was observed in the session unless marked as a hypothesis.
-- **State of `develop`:** commits through the library and play screen, plus the local catalog mechanism. **Nothing is pushed.** Push only when the owner says so.
+- **State of `develop`:** pushed to `origin/develop` and green on CI. The owner authorised commits and pushes to `develop`; a push to `main` still needs an explicit yes (ADR 0002).
 
 ## How to run the spike locally
 
@@ -34,7 +34,7 @@
 ## Blockers found while working alone (2026-10-28)
 
 - **CI added (2026-10-28).** The sibling-folder blocker is gone: `pixelito-protocol` (public) is now a git dependency pinned to a commit, and the alias points into `node_modules`. The workflow is `.github/workflows/ci.yml` (approved by the owner; actions pinned by SHA, pnpm via Corepack, `pnpm install --frozen-lockfile`, `pnpm check`, `pnpm build`). Bump the pinned commit in `package.json` whenever the protocol changes.
-- **Saves export** is done (protocol, local fork change, play-screen button); **import** is not, see `saves-export-import-design.md`. The fork change is local and uncommitted.
+- **Saves export** is done (protocol, fork bridge, play-screen button), all pushed; **import** is not, see `saves-export-import-design.md`.
 - ADR 0002 lists CI workflows as protected files: the owner approves them.
 
 ## Emulator on GitHub Pages (2026-10-28)
@@ -48,4 +48,4 @@
 
 - Remove the firewall rule: `sudo ufw delete allow from 192.168.1.0/24 to any port 5173,5174 proto tcp`.
 - Phase 0 leftovers: name and trademark checks (task 10), backend vendor (task 11), device benchmarks (task 14), LICENSE holder, contact mailbox, CheerpJ email (do not send without an explicit yes).
-- Deferred: reduce the ~10 s game load time (headline gap), self-hosted fonts, saves export/import in the emulator fork, moving the emulator to its own repo.
+- Deferred: trimmed JRE preload list (needs real-phone measurement), saves import (needs a safe write path through CheerpJ), a public Pixelito origin in the emulator allowlist (no host chosen yet).
