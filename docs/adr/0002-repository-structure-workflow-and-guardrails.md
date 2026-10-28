@@ -100,7 +100,7 @@ Rules: touch-scoped verification (`pnpm verify` from the first commit, with a ve
 ## 9. Delivery
 
 - Two long-lived branches only: `main` (production) and `develop` (work). No other long-lived branches; short-lived feature branches are optional and merge into `develop`.
-- Remotes (2026-10-22): `github.com/elvinlab/pixelito` (made public on 2026-10-28 to host the app on GitHub Pages; GitHub Free only serves Pages from public repositories) and `github.com/elvinlab/pixelito-protocol` (public). `main` of `pixelito-protocol` is protected (pull request, check `test`, no force push or deletion; admins not enforced, so the owner can bypass). **`main` of `pixelito` is not protected**: GitHub Free does not offer branch protection on private repositories (HTTP 403). Owner decision: accept that for now and rely on the explicit-yes rule below; revisit when the monorepo has code and CI, or if the plan changes.
+- Remotes (2026-10-22): `github.com/elvinlab/pixelito` (made public on 2026-10-28 to host the app on GitHub Pages; GitHub Free only serves Pages from public repositories) and `github.com/elvinlab/pixelito-protocol` (public). `main` of `pixelito-protocol` is protected (pull request, check `test`, no force push or deletion; admins not enforced, so the owner can bypass). **`main` of `pixelito` is protected since 2026-10-28** (the repo is public, so GitHub Free allows it): pull request required, check `check`, no force push or deletion, admins not enforced so the owner can bypass. The explicit-yes rule below still applies.
 - A push to `main` deploys and needs the owner's explicit yes. `develop` only reaches `main` through a release the owner asks for.
 
 ### Task tracking by documents
