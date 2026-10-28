@@ -19,3 +19,11 @@ createRoot(root).render(
     </I18nProvider>
   </StrictMode>,
 )
+
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // The app works without it; only offline use is lost.
+    })
+  })
+}

@@ -53,3 +53,12 @@ Lighthouse scores, real devices and slow networks, hydration cost, the effect of
 2. Run Lighthouse and a throttled test on both, on a phone if possible.
 3. Re-measure with the real shell once task 7's keypad and the library UI exist.
 4. Only then write the ADR line.
+
+## Update 2026-10-28: installable shell
+
+The PWA layer is **hand-written, no dependency** (the spike showed a small worker is enough): `public/sw.js` (network first for pages, cache first for hashed assets, same origin only), a manifest emitted by a small plugin in `vite.config.ts` (the product name comes from `src/product.ts`), and pixel-art icons (`public/icon.svg`, PNGs at 180, 192 and 512 rendered from it). The worker registers in production builds only.
+
+- **Verified (Chromium, production build, headless):** the worker controls the page after a reload, the manifest parses, the three icons return 200, and an offline reload shows the library.
+- **Not verified:** the install prompt and "add to home screen" on a real phone, Lighthouse, and a release after a code change (the worker keeps the previous page only as an offline fallback).
+- **Known gap:** offline play does not work yet. The emulator is on another origin and is not cached, and the games and their saves are not stored locally. This is the next piece for the "offline" promise.
+- Serwist or `vite-plugin-pwa` stay an option if precaching hashed assets ahead of use becomes necessary.
