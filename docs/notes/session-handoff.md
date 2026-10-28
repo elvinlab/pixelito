@@ -5,7 +5,7 @@
 
 ## How to run the spike locally
 
-1. Emulator (separate repo `pixelito-emulator-scratch`, clone of `zb3/freej2me-web`, local changes uncommitted on purpose): serve `web/` with a static server that supports HTTP Range requests.
+1. Emulator (public fork `elvinlab/pixelito-emulator`, branch `develop`, of `zb3/freej2me-web`, GPLv3; locally the folder `pixelito-emulator-scratch`, remote `pixelito`. The only uncommitted change there is the temporary LAN origin in `web/src/pixelito-bridge.js`, kept out of the repo on purpose): serve `web/` with a static server that supports HTTP Range requests.
 2. Pixelito: `VITE_EMULATOR_ORIGIN=<emulator origin> pnpm dev --host`.
 3. The emulator accepts messages only from an allowlist of origins in `web/src/pixelito-bridge.js`. The LAN origin used for phone tests is **temporary and must not be committed**.
 4. Games live in the emulator's `web/jar/` (git-ignored). The official catalogue is `src/features/library/catalog.ts`. Private test games go in `src/features/library/catalog.local.ts`, which is git-ignored and **must never be committed** (user-supplied commercial `.jar` files stay out of the repo).
