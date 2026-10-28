@@ -33,7 +33,7 @@
 
 ## Blockers found while working alone (2026-10-28)
 
-- **No CI for the app yet, on purpose.** The sibling-folder blocker is gone: `pixelito-protocol` (public) is now a git dependency pinned to a commit, and the alias points into `node_modules`. What remains is the workflow itself: copy the one in `pixelito-protocol` (actions pinned by SHA, `pnpm install --frozen-lockfile`, `pnpm check`). CI workflows are protected files (ADR 0002): the owner approves them. Bump the pinned commit in `package.json` whenever the protocol changes.
+- **CI added (2026-10-28).** The sibling-folder blocker is gone: `pixelito-protocol` (public) is now a git dependency pinned to a commit, and the alias points into `node_modules`. The workflow is `.github/workflows/ci.yml` (approved by the owner; actions pinned by SHA, pnpm via Corepack, `pnpm install --frozen-lockfile`, `pnpm check`, `pnpm build`). Bump the pinned commit in `package.json` whenever the protocol changes.
 - **Export/import of saves** changes the protocol (a contract) and the fork; see `freej2me-web.md`. Not started.
 - ADR 0002 lists CI workflows as protected files: the owner approves them.
 
