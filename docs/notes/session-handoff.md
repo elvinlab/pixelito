@@ -41,7 +41,7 @@
 
 - Published at `https://elvinlab.github.io/pixelito-emulator/` from branch `develop` of `elvinlab/pixelito-emulator` by `.github/workflows/pages.yml` (actions pinned by SHA; the `github-pages` environment allows deploys from `develop`).
 - Point the app at it with `VITE_EMULATOR_URL=https://elvinlab.github.io/pixelito-emulator` (a path is allowed; the origin used for message checks is derived from it). Checked headless: the host receives `ready` from it.
-- **The site has no games.** `web/jar/` is git-ignored, so `jar/gaem.jar` answers 404 and nothing can start there yet. Shipping GAEM is a licence call for the owner: its source headers say GPLv2 or later, but the artwork has no separate licence line (`docs/notes/demo-games.md`, gap 1).
+- **Games on the site:** only GAEM (`jar/gaem.jar`, GPLv2 or later, shipped unmodified with `GAEM-LICENSE.txt` and `GAEM-NOTICE.txt` pointing at its source). The owner delegated the call; the residual risk is that the artwork has no separate licence line (`docs/notes/demo-games.md`, gap 1), which the GPL grant from the same author very likely covers. `rally.jar` and any other user-supplied jar stay out (`web/jar/` ignores everything else). Checked: `jar/gaem.jar` answers 200, `jar/rally.jar` 404, and the app reaches `started` against the published emulator.
 - The emulator's committed allowlist only has the local dev hosts. A deployed Pixelito origin must be added there before it can talk to the emulator.
 
 ## Owner pending
