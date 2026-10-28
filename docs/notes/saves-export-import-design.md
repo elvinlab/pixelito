@@ -9,6 +9,14 @@
 - The protocol (version 1) already has `list-saves` (host) and `saves` (emulator, paths only), with validators for ids and list sizes.
 - The directory name is the game's app name from the jar, not Pixelito's game id. Mapping is open question 1.
 
+## Storage format (observed 2026-10-28, headless Chromium, Rally Master Pro)
+
+- IndexedDB database `cjFS_/files/`, one object store `files`, out-of-line keys (the full path), no autoincrement.
+- A file entry is `{ type, contents: Uint8Array, inodeId, permType: 33206, uid, gid, lastModified }`; a directory entry has `contents: Array` (child names) and `permType: 16895`. Example: `/Rally Master Pro/rms/FL_RMP_OPT` holds 1478 bytes.
+- **Export** can read these entries directly (read-only), so it is low risk.
+- **Import by writing IndexedDB directly is not safe to ship unverified.** The entries carry inode ids and the parent directory lists its children, and CheerpJ may keep its own in-memory copy after mounting. A raw write can leave a directory and its files inconsistent, or be ignored or overwritten by the running runtime. Import needs a write path through CheerpJ or the Java side (for example the launcher's own `importData`), which has to be tested against a real run first.
+- Suggested order: ship export first (host-side backup works, restore is manual), then add import once a consistent write path is proven.
+
 ## Proposed messages (additive, still protocol version 1)
 
 | Direction | Message | Fields |
