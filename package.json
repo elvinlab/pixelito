@@ -1,6 +1,7 @@
 {
   "name": "pixelito",
   "private": true,
+  "license": "GPL-3.0-only",
   "type": "module",
   "packageManager": "pnpm@12.6.0",
   "engines": {

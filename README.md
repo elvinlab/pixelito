@@ -40,8 +40,12 @@ Tools are pinned in `.mise.toml` (Node, pnpm); run `mise install` once.
 
 Code conventions: TypeScript strict (plus `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`), `@/` alias for cross-folder imports, TSDoc (`/** */`) on every exported symbol saying what it is for, not how it works. Architecture rules are in ADR 0002.
 
-The play screen needs the emulator on a separate origin (default `http://127.0.0.1:5174`, override with `VITE_EMULATOR_URL`, which may include a path such as a GitHub Pages project site; `VITE_EMULATOR_ORIGIN` still works). For now `vite.config.ts` and `tsconfig.json` resolve `pixelito-protocol` from a sibling checkout at `../pixelito-protocol`.
+The play screen needs the emulator on a separate origin (default `http://127.0.0.1:5174`, override with `VITE_EMULATOR_URL`, which may include a path such as a GitHub Pages project site; `VITE_EMULATOR_ORIGIN` still works). `pixelito-protocol` is a git dependency pinned to a commit in `package.json`; bump the pin when the protocol changes.
 
 Games for trying on one machine only go in `src/features/library/catalog.local.ts`, which is git-ignored (same shape as `catalog.ts`, exporting `LOCAL_GAMES`; a game may set `confirmKey: 'five'` when it only reacts to 5). Never commit commercial games.
 
-The emulator is a separate project (a fork of `freej2me-web`) that is not published yet; how to run it locally, and what the fork needs, is in [docs/notes/freej2me-web.md](docs/notes/freej2me-web.md) and the handoff note.
+The emulator is a separate project, the public fork [`elvinlab/pixelito-emulator`](https://github.com/elvinlab/pixelito-emulator) of `freej2me-web`; how to run it locally, and what the fork needs, is in [docs/notes/freej2me-web.md](docs/notes/freej2me-web.md) and the handoff note.
+
+## Live site and licence
+
+The app is published at <https://elvinlab.github.io/pixelito/> from `develop` by `.github/workflows/pages.yml`. Pixelito is licensed under the GNU GPL v3 only (see [LICENSE](LICENSE)). Third-party games are not covered by it and never belong in this repository.
