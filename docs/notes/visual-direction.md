@@ -54,7 +54,7 @@ Each game also carries its own accent, shown as a stripe on its card, its sprite
 - IBM Plex Sans (400, 600): everything that is read. Sizes 32, 22, 18, 15, 13; 12 is the floor.
 - JetBrains Mono: keyboard hints such as F1, F2, Enter.
 
-All four are in the elvinlab.dev brand and licensed under the SIL Open Font License (confirm before shipping). In the product, self-host a Latin subset in woff2 instead of loading Google Fonts: no third-party request per visit (privacy), one connection less (speed).
+All four are in the elvinlab.dev brand and licensed under the SIL Open Font License (confirm before shipping). In the product, the fonts are self-hosted (done 2026-10-28, Fontsource 5.3.0, Latin subset in woff2, weights 400 and 600 of Plex, 400 of the other three, 88 KB in total and fetched only when a face is used) instead of loading Google Fonts: no third-party request per visit (privacy), one connection less (speed). Measured in a browser: five faces loaded, zero external requests.
 
 ## Shape and motion
 

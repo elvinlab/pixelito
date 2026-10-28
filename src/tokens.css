@@ -32,7 +32,7 @@
   --target: 44px;
   --border: 2px solid var(--line);
 
-  /* Fonts are system fallbacks until the brand fonts are self-hosted. */
+  /* Brand fonts are self-hosted (Fontsource, Latin subset); the rest is the fallback while they load. */
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-display: "Pixelify Sans", "IBM Plex Sans", system-ui, sans-serif;
   --font-pixel: "Press Start 2P", ui-monospace, monospace;
