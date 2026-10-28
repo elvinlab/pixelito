@@ -35,9 +35,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fromHere('./src'),
-      // Spike: the protocol repo sits next to this one until it is published.
-      'pixelito-protocol': fromHere('../pixelito-protocol/src/protocol.ts'),
+      // The package ships TypeScript source only, so point at it directly.
+      'pixelito-protocol': fromHere('./node_modules/pixelito-protocol/src/protocol.ts'),
     },
   },
-  server: { fs: { allow: ['.', fromHere('../pixelito-protocol/src')] } },
 })

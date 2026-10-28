@@ -32,7 +32,7 @@
 
 ## Blockers found while working alone (2026-10-28)
 
-- **No CI for the app yet, on purpose.** `vite.config.ts` aliases `pixelito-protocol` to `../pixelito-protocol/src/protocol.ts`, a sibling folder that does not exist on a CI runner, so a workflow would fail on every push. Fix first: make the protocol a real dependency (a git dependency pinned to a commit, or a published package), then copy the workflow of `pixelito-protocol` (actions pinned by SHA, `pnpm install --frozen-lockfile`, `pnpm check`). Needs the owner to say where the protocol is published; whether that repository is public was not checked.
+- **No CI for the app yet, on purpose.** The sibling-folder blocker is gone: `pixelito-protocol` (public) is now a git dependency pinned to a commit, and the alias points into `node_modules`. What remains is the workflow itself: copy the one in `pixelito-protocol` (actions pinned by SHA, `pnpm install --frozen-lockfile`, `pnpm check`). CI workflows are protected files (ADR 0002): the owner approves them. Bump the pinned commit in `package.json` whenever the protocol changes.
 - **Export/import of saves** changes the protocol (a contract) and the fork; see `freej2me-web.md`. Not started.
 - ADR 0002 lists CI workflows as protected files: the owner approves them.
 
