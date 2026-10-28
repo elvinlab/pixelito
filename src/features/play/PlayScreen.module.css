@@ -32,6 +32,17 @@
   font-weight: 400;
 }
 
+.export {
+  margin-inline-start: auto;
+  min-height: var(--target);
+  padding: 0 var(--space-3);
+  background: transparent;
+  color: var(--cyan);
+  border: var(--border);
+  font: inherit;
+  cursor: pointer;
+}
+
 .stage {
   position: relative;
   flex: 1;

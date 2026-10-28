@@ -11,6 +11,8 @@ const es = {
     loading: 'Cargando…',
     slow: 'Tarda más de lo normal. La primera vez descarga el emulador.',
     screen: 'Pantalla del juego',
+    exportSaves: 'Exportar partidas',
+    exportFailed: 'No se pudieron exportar las partidas.',
   },
   keys: {
     softLeft: 'Tecla izquierda',
@@ -60,6 +62,8 @@ const en: Messages = {
     loading: 'Loading…',
     slow: 'Taking longer than usual. The first time it downloads the emulator.',
     screen: 'Game screen',
+    exportSaves: 'Export saves',
+    exportFailed: 'Could not export the saves.',
   },
   keys: {
     softLeft: 'Left soft key',

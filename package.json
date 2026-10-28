@@ -21,7 +21,7 @@
     "@fontsource/jetbrains-mono": "5.3.0",
     "@fontsource/pixelify-sans": "5.3.0",
     "@fontsource/press-start-2p": "5.3.0",
-    "pixelito-protocol": "github:elvinlab/pixelito-protocol#445aa83ecf6c232a1c83a2f905588cb143e6f4d0",
+    "pixelito-protocol": "github:elvinlab/pixelito-protocol#724ee4cf3a399a7408d7762d731454bc85f1ecea",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },

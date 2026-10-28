@@ -16,4 +16,6 @@ export interface Game {
   readonly emulatorJar: string
   /** What Pixelito's OK key sends for this game. Defaults to `enter`. */
   readonly confirmKey?: ConfirmKey
+  /** Name of the game's save directory in the emulator (`/<saveDir>/rms/`). Enables saves export. */
+  readonly saveDir?: string
 }
