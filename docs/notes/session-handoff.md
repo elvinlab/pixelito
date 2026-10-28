@@ -44,6 +44,13 @@
 - **Games on the site:** only GAEM (`jar/gaem.jar`, GPLv2 or later, shipped unmodified with `GAEM-LICENSE.txt` and `GAEM-NOTICE.txt` pointing at its source). The owner delegated the call; the residual risk is that the artwork has no separate licence line (`docs/notes/demo-games.md`, gap 1), which the GPL grant from the same author very likely covers. `rally.jar` and any other user-supplied jar stay out (`web/jar/` ignores everything else). Checked: `jar/gaem.jar` answers 200, `jar/rally.jar` 404, and the app reaches `started` against the published emulator.
 - The emulator's committed allowlist only has the local dev hosts. A deployed Pixelito origin must be added there before it can talk to the emulator.
 
+## Pixelito on GitHub Pages (2026-10-28)
+
+- The repo `elvinlab/pixelito` was made **public** (owner decision) because GitHub Free only serves Pages from public repositories. Before that, history and tracked files were scanned: no secrets, no email addresses in content, no `.jar` or `catalog.local.ts` ever tracked. Commit author metadata is the same as in the already public `pixelito-protocol`.
+- Live at `https://elvinlab.github.io/pixelito/`, built and deployed by `.github/workflows/pages.yml` on every push to `develop` (runs `pnpm check` first; the `github-pages` environment only allows `develop`). It sets `VITE_BASE=/pixelito/` and `VITE_EMULATOR_URL` to the published emulator.
+- The emulator allowlist now includes `https://elvinlab.github.io` (fork commit `bc7e368`). Checked against both live sites: GAEM reaches `ready`.
+- The repo has **no LICENSE file yet**, so by default all rights are reserved. Choosing the holder and the licence is still an owner decision.
+
 ## Owner pending
 
 - Remove the firewall rule: `sudo ufw delete allow from 192.168.1.0/24 to any port 5173,5174 proto tcp`.
