@@ -188,3 +188,12 @@ Test (Chromium and Firefox, headless, persistent profile in a scratch folder): i
 - ADR 0001 unverified item 2 (CheerpJ version) is partly answered; item 3 (COOP/COEP) leans "not required" but is still unconfirmed; item 1 (RMS and events) is half answered: events yes, RMS no.
 - Task 5 (bridge) is now concrete: a small script in the fork that listens for protocol messages and feeds `window.evtQueue`, and posts lifecycle and save events out.
 - No blocker found for the isolated-iframe design.
+
+## Warm-up mode (2026-10-28)
+
+Measured in headless Chromium against a local emulator server: a cold first game takes about 8.5 s, of which about 13.6 MB is the CheerpJ runtime from its CDN (cacheable for a year); with every cache warm it takes about 1.4 s.
+
+- **Fork change (local only, in `web/src/main.js`, uncommitted with the rest of the fork):** after `const FreeJ2ME = await lib.org.recompile.freej2me.FreeJ2ME;`, `if (sp.get('warmup')) { window.parent.postMessage({ pixelitoWarmup: 'done' }, '*'); return; }`. It starts the runtime and the library jar without launching a game. **An emulator without this change would start its default game instead**, so deploy the emulator first.
+- **Pixelito side:** `EmulatorWarmup` (`src/features/play`) mounts a hidden frame on the library screen when the browser is idle, skips it when `saveData` is on or the connection is `3g` or slower (`shouldWarmUp`), and removes the frame on the `done` message from the emulator origin or after 60 s.
+- **Result (end to end, same machine):** first game 8.7 s without the library visit, 4.1 s after the warm-up finished. The remaining time is the part of the JRE that only downloads when Java code runs.
+- **Open:** warming the JRE chunks too (would need running a trivial class), and measuring on a real phone and network.

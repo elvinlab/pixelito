@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import { playHref } from '@/app/router'
 import { PRODUCT_NAME } from '@/config'
+import { EmulatorWarmup } from '@/features/play'
 import { LanguageSwitch, useI18n } from '@/shared/i18n'
 import { CompatibilityBadge } from '@/shared/ui'
 import { CATALOG } from './catalog'
@@ -15,6 +16,7 @@ export function LibraryScreen() {
         <h1 className={styles.logo}>{PRODUCT_NAME}</h1>
         <LanguageSwitch />
       </header>
+      <EmulatorWarmup />
       <main className={styles.main}>
         <h2 className={styles.heading}>{t.library.heading}</h2>
         <ul className={styles.grid}>
