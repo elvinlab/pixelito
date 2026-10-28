@@ -28,6 +28,7 @@
 - Full path reached in headless: sound menu, Main Menu, Choose Rally, name entry ("What is your name?"), Rally Overview (bar 100%), Track Overview, the race start gate in 3D, and the in-game help. No hang, with 5 alone or with Enter and 5 together.
 - One run froze the page main thread during a screenshot (Playwright timed out at 30 s); the identical run later passed. Intermittent, cause unknown.
 - The `NullPointerException` in `fu.keyPressed` and `fu.keyReleased` appears in every run and is harmless there.
+- Headed Chromium (real window, GPU rasterization forced, 2026-10-28): same path through Choose Game Mode, name entry and Rally Overview with its help, no hang. So window and GPU rendering alone do not reproduce it; remaining suspects are the owner's audio output and extensions.
 - Still open: the owner's Chrome shows a blank game area with an orange bar near 93% and "LOADING", at the sound menu after pressing Start. It likely depends on real GPU or audio. Next: ask the owner for the browser console output (F12) at that moment, and try headed Chrome with a real GPU.
 
 ## Blockers found while working alone (2026-10-28)
