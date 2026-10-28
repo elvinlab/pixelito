@@ -19,13 +19,19 @@
 - **Hypothesis, unverified:** the stuck screen is the loading of a race (after Start and Choose Rally), where Micro3D/WebGL is used, not the sound menu. The owner was asked which screen came right before it and has not answered.
 - Next steps: ask which screen preceded the stuck LOADING; if it is the race load, test headed Chrome with a real GPU and check the WebGL errors; inspect `fu` with `javap -p -c`; consider a hint when a game waits for a key.
 
-## Uncommitted experiment (working tree)
+## Control profile per game (done 2026-10-28)
 
-`keys.ts` (`expandKey`: Enter sends Enter and Digit5), its tests, and a wrapper in `PlayScreen.tsx`. It was the owner's request ("que el OK mande también el 5"), then measured as double-advancing screens. Recommended instead: a **per-game control profile** in the catalogue (Rally = 5, GAEM = Enter). The owner has not decided. Either commit the profile or drop the experiment (`git checkout -- src/features/play`).
+`Game.confirmKey` (`'enter'` by default, or `'five'`) decides what Pixelito's OK sends. Rally Master Pro uses `'five'` in the git-ignored `catalog.local.ts`; GAEM keeps Enter. The "send Enter and 5 together" experiment was replaced by this, because it skipped two screens per tap.
+
+## Reproduction attempts for the stuck LOADING (headless Chromium, 2026-10-28)
+
+- Full path reached in headless: sound menu, Main Menu, Choose Rally, name entry ("What is your name?"), Rally Overview (bar 100%), Track Overview, the race start gate in 3D, and the in-game help. No hang, with 5 alone or with Enter and 5 together.
+- One run froze the page main thread during a screenshot (Playwright timed out at 30 s); the identical run later passed. Intermittent, cause unknown.
+- The `NullPointerException` in `fu.keyPressed` and `fu.keyReleased` appears in every run and is harmless there.
+- Still open: the owner's Chrome shows a blank game area with an orange bar near 93% and "LOADING", at the sound menu after pressing Start. It likely depends on real GPU or audio. Next: ask the owner for the browser console output (F12) at that moment, and try headed Chrome with a real GPU.
 
 ## Owner pending
 
 - Remove the firewall rule: `sudo ufw delete allow from 192.168.1.0/24 to any port 5173,5174 proto tcp`.
-- Decide: per-game control profile vs sending both keys.
 - Phase 0 leftovers: name and trademark checks (task 10), backend vendor (task 11), device benchmarks (task 14), LICENSE holder, contact mailbox, CheerpJ email (do not send without an explicit yes).
 - Deferred: reduce the ~10 s game load time (headline gap), self-hosted fonts, saves export/import in the emulator fork, moving the emulator to its own repo.

@@ -1,18 +1,24 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { LIBRARY_HREF } from '@/app/router'
 import type { Game } from '@/domain/game'
 import { useI18n } from '@/shared/i18n'
 import { EmulatorFrame } from './EmulatorFrame'
 import { Keypad } from './Keypad'
-import { isForwardedKey } from './keys'
+import { isForwardedKey, keyForGame } from './keys'
 import styles from './PlayScreen.module.css'
-import { useEmulatorBridge } from './useEmulatorBridge'
+import { type KeyAction, useEmulatorBridge } from './useEmulatorBridge'
 
 /** The play screen: back link, title, the emulator and Pixelito's own keys. */
 export function PlayScreen({ game }: { readonly game: Game }) {
   const { t } = useI18n()
   const frameRef = useRef<HTMLIFrameElement>(null)
-  const { state, sendKey } = useEmulatorBridge(frameRef)
+  const { state, sendKey: sendCode } = useEmulatorBridge(frameRef)
+  const sendKey = useCallback(
+    (action: KeyAction, code: string) => {
+      sendCode(action, keyForGame(code, game.confirmKey ?? 'enter'))
+    },
+    [sendCode, game.confirmKey],
+  )
 
   useEffect(() => {
     const forward = (action: 'down' | 'up') => (event: KeyboardEvent) => {
