@@ -40,7 +40,7 @@ Tools are pinned in `.mise.toml` (Node, pnpm); run `mise install` once.
 
 Code conventions: TypeScript strict (plus `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`), `@/` alias for cross-folder imports, TSDoc (`/** */`) on every exported symbol saying what it is for, not how it works. Architecture rules are in ADR 0002.
 
-The play screen needs the emulator on a separate origin (default `http://127.0.0.1:5174`, override with `VITE_EMULATOR_ORIGIN`). For now `vite.config.ts` and `tsconfig.json` resolve `pixelito-protocol` from a sibling checkout at `../pixelito-protocol`.
+The play screen needs the emulator on a separate origin (default `http://127.0.0.1:5174`, override with `VITE_EMULATOR_URL`, which may include a path such as a GitHub Pages project site; `VITE_EMULATOR_ORIGIN` still works). For now `vite.config.ts` and `tsconfig.json` resolve `pixelito-protocol` from a sibling checkout at `../pixelito-protocol`.
 
 Games for trying on one machine only go in `src/features/library/catalog.local.ts`, which is git-ignored (same shape as `catalog.ts`, exporting `LOCAL_GAMES`; a game may set `confirmKey: 'five'` when it only reacts to 5). Never commit commercial games.
 

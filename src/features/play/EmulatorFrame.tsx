@@ -1,5 +1,5 @@
 import type { Ref } from 'react'
-import { EMULATOR_ORIGIN } from '@/config'
+import { EMULATOR_URL } from '@/config'
 
 interface EmulatorFrameProps {
   /** File name of a game inside the emulator's `jar/` folder. Catalogue data only, never user input. */
@@ -18,7 +18,7 @@ const SAFE_JAR = /^[a-z0-9-]+\.jar$/
  */
 export function EmulatorFrame({ jar, frameRef, state, title, className }: EmulatorFrameProps) {
   if (!SAFE_JAR.test(jar)) throw new Error(`Refusing unsafe jar name: ${jar}`)
-  const src = `${EMULATOR_ORIGIN}/run.html?jar=${encodeURIComponent(jar)}`
+  const src = `${EMULATOR_URL}/run.html?jar=${encodeURIComponent(jar)}`
   return (
     <iframe
       ref={frameRef}

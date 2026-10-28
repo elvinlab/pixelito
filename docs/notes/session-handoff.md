@@ -37,6 +37,13 @@
 - **Saves export** is done (protocol, local fork change, play-screen button); **import** is not, see `saves-export-import-design.md`. The fork change is local and uncommitted.
 - ADR 0002 lists CI workflows as protected files: the owner approves them.
 
+## Emulator on GitHub Pages (2026-10-28)
+
+- Published at `https://elvinlab.github.io/pixelito-emulator/` from branch `develop` of `elvinlab/pixelito-emulator` by `.github/workflows/pages.yml` (actions pinned by SHA; the `github-pages` environment allows deploys from `develop`).
+- Point the app at it with `VITE_EMULATOR_URL=https://elvinlab.github.io/pixelito-emulator` (a path is allowed; the origin used for message checks is derived from it). Checked headless: the host receives `ready` from it.
+- **The site has no games.** `web/jar/` is git-ignored, so `jar/gaem.jar` answers 404 and nothing can start there yet. Shipping GAEM is a licence call for the owner: its source headers say GPLv2 or later, but the artwork has no separate licence line (`docs/notes/demo-games.md`, gap 1).
+- The emulator's committed allowlist only has the local dev hosts. A deployed Pixelito origin must be added there before it can talk to the emulator.
+
 ## Owner pending
 
 - Remove the firewall rule: `sudo ufw delete allow from 192.168.1.0/24 to any port 5173,5174 proto tcp`.

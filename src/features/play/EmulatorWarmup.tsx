@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { EMULATOR_ORIGIN } from '@/config'
+import { EMULATOR_ORIGIN, EMULATOR_URL } from '@/config'
 import { type ConnectionInfo, shouldWarmUp } from './warmup'
 
 const IDLE_FALLBACK_MS = 1500
@@ -48,7 +48,7 @@ export function EmulatorWarmup() {
       hidden
       tabIndex={-1}
       title="Emulator warm-up"
-      src={`${EMULATOR_ORIGIN}/run.html?warmup=1`}
+      src={`${EMULATOR_URL}/run.html?warmup=1`}
     />
   )
 }
