@@ -13,6 +13,9 @@ import { type KeyAction, useEmulatorBridge } from './useEmulatorBridge'
 /** Milliseconds of loading after which the screen explains the wait. */
 const SLOW_LOAD_MS = 12_000
 
+/** Milliseconds a started game waits for input before the screen suggests pressing OK. */
+const IDLE_HINT_MS = 8_000
+
 /** The play screen: back link, title, the emulator and Pixelito's own keys. */
 export function PlayScreen({ game }: { readonly game: Game }) {
   const { t } = useI18n()
@@ -20,9 +23,12 @@ export function PlayScreen({ game }: { readonly game: Game }) {
   const { state, sendKey: sendCode, canExportSaves, exportSaves } = useEmulatorBridge(frameRef)
   const [exportFailed, setExportFailed] = useState(false)
   const [slow, setSlow] = useState(false)
+  const [pressed, setPressed] = useState(false)
+  const [idle, setIdle] = useState(false)
   const started = state === 'started'
   const sendKey = useCallback(
     (action: KeyAction, code: string) => {
+      setPressed(true)
       sendCode(action, keyForGame(code, game.confirmKey ?? 'enter'))
     },
     [sendCode, game.confirmKey],
@@ -37,6 +43,12 @@ export function PlayScreen({ game }: { readonly game: Game }) {
     const timer = setTimeout(() => setSlow(true), SLOW_LOAD_MS)
     return () => clearTimeout(timer)
   }, [started])
+
+  useEffect(() => {
+    if (!started || pressed) return
+    const timer = setTimeout(() => setIdle(true), IDLE_HINT_MS)
+    return () => clearTimeout(timer)
+  }, [started, pressed])
 
   useEffect(() => {
     const forward = (action: 'down' | 'up') => (event: KeyboardEvent) => {
@@ -99,6 +111,7 @@ export function PlayScreen({ game }: { readonly game: Game }) {
             {t.play.exportFailed}
           </p>
         )}
+        {started && idle && !pressed && <p className={styles.status}>{t.play.idle}</p>}
         {!started && <p className={styles.status}>{slow ? t.play.slow : t.play.loading}</p>}
       </div>
       <Keypad onKey={sendKey} />
