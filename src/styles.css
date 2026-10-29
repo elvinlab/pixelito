@@ -15,6 +15,14 @@ body {
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.5;
+  /* No pull-to-refresh or scroll chaining while thumbs are on the keys. */
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--button);
+  color: #fff;
 }
 
 button {

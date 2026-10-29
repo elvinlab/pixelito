@@ -1,4 +1,4 @@
-import { type PointerEvent, useEffect, useRef, useState } from 'react'
+import { type PointerEvent, type ReactNode, useEffect, useRef, useState } from 'react'
 import { LIBRARY_HREF } from '@/app/router'
 import { useI18n } from '@/shared/i18n'
 import styles from './Keypad.module.css'
@@ -11,9 +11,27 @@ interface KeypadProps {
 
 interface PadKeyProps extends KeypadProps {
   readonly code: string
-  readonly label: string
+  readonly label: ReactNode
   readonly name: string
   readonly className?: string | undefined
+}
+
+/** Length of the haptic tick on a key press, in milliseconds. */
+const TICK_MS = 8
+
+/** An 8-bit arrow drawn on an 8x8 grid; the other directions are rotations of this one. */
+function Arrow({ turns }: { readonly turns: 0 | 1 | 2 | 3 }) {
+  return (
+    <svg
+      className={styles.arrow}
+      style={{ transform: `rotate(${turns * 90}deg)` }}
+      viewBox="0 0 8 8"
+      shapeRendering="crispEdges"
+      aria-hidden="true"
+    >
+      <path d="M3 0h2v1h1v1h1v1h1v1H5v4H3V4H0V3h1V2h1V1h1z" fill="currentColor" />
+    </svg>
+  )
 }
 
 /** One on-screen key: down on press, up on release, cancel or unmount. */
@@ -29,6 +47,7 @@ function PadKey({ code, label, name, className, onKey }: PadKeyProps) {
     event.currentTarget.setPointerCapture(event.pointerId)
     if (held.current) return
     held.current = true
+    if ('vibrate' in navigator) navigator.vibrate(TICK_MS)
     onKey('down', code)
   }
   // biome-ignore lint/correctness/useExhaustiveDependencies: release only on unmount
@@ -58,7 +77,7 @@ const DIGIT_ROWS = ['123', '456', '789'] as const
 export function Keypad({ onKey }: KeypadProps) {
   const { t } = useI18n()
   const [numbers, setNumbers] = useState(false)
-  const key = (code: string, label: string, name: string, className?: string) => (
+  const key = (code: string, label: ReactNode, name: string, className?: string) => (
     <PadKey code={code} label={label} name={name} className={className} onKey={onKey} />
   )
 
@@ -77,11 +96,11 @@ export function Keypad({ onKey }: KeypadProps) {
           </div>
         ) : (
           <div className={styles.dpad}>
-            {key(KEY.up, '▲', t.keys.up, styles.up)}
-            {key(KEY.left, '◀', t.keys.left, styles.left)}
+            {key(KEY.up, <Arrow turns={0} />, t.keys.up, styles.up)}
+            {key(KEY.left, <Arrow turns={3} />, t.keys.left, styles.left)}
             {key(KEY.ok, 'OK', t.keys.ok, styles.ok)}
-            {key(KEY.right, '▶', t.keys.right, styles.right)}
-            {key(KEY.down, '▼', t.keys.down, styles.down)}
+            {key(KEY.right, <Arrow turns={1} />, t.keys.right, styles.right)}
+            {key(KEY.down, <Arrow turns={2} />, t.keys.down, styles.down)}
           </div>
         )}
         {key(KEY.softRight, 'R', t.keys.softRight)}

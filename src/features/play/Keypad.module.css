@@ -5,7 +5,8 @@
   gap: var(--space-3);
   width: 100%;
   max-width: 360px;
-  padding: var(--space-3) var(--space-4) var(--space-4);
+  /* Keep the keys clear of the home indicator on phones with one. */
+  padding: var(--space-3) var(--space-4) max(var(--space-4), env(safe-area-inset-bottom));
   background: var(--card);
   border-top: var(--border);
   touch-action: none;
@@ -68,7 +69,15 @@
   font-size: 13px;
   text-decoration: none;
   touch-action: none;
+  -webkit-tap-highlight-color: transparent;
   cursor: pointer;
+}
+
+.arrow {
+  display: block;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
 }
 
 .key:active {
