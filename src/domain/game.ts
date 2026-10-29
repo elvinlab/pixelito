@@ -12,6 +12,8 @@ export interface Game {
   readonly compatibility: CompatibilityStatus
   /** The game's own accent color, shown on its card. */
   readonly accent: string
+  /** Optional cover image URL. Without one the card draws a label from the title and accent. */
+  readonly cover?: string
   /** File name inside the emulator's `jar/` folder. Catalogue data only, never user input. */
   readonly emulatorJar: string
   /** What Pixelito's OK key sends for this game. Defaults to `enter`. */

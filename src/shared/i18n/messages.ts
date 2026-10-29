@@ -6,6 +6,8 @@ const es = {
     play: 'Jugar',
     playGame: (title: string) => `Jugar a ${title}`,
     source: 'Código fuente',
+    neverPlayed: 'Sin jugar todavía',
+    lastPlayed: (when: string) => `Jugado ${when}`,
   },
   play: {
     back: '← Biblioteca',
@@ -58,6 +60,8 @@ const en: Messages = {
     play: 'Play',
     playGame: (title) => `Play ${title}`,
     source: 'Source code',
+    neverPlayed: 'Not played yet',
+    lastPlayed: (when) => `Played ${when}`,
   },
   play: {
     back: '← Library',

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { LIBRARY_HREF } from '@/app/router'
 import type { Game } from '@/domain/game'
 import { useI18n } from '@/shared/i18n'
+import { markPlayed } from '@/shared/lastPlayed'
 import { EmulatorFrame } from './EmulatorFrame'
 import { Keypad } from './Keypad'
 import { isForwardedKey, keyForGame } from './keys'
@@ -26,6 +27,10 @@ export function PlayScreen({ game }: { readonly game: Game }) {
     },
     [sendCode, game.confirmKey],
   )
+
+  useEffect(() => {
+    if (started) markPlayed(game.id)
+  }, [started, game.id])
 
   useEffect(() => {
     if (started) return
