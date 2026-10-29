@@ -4,6 +4,7 @@ import { PRODUCT_NAME, SOURCE_URL } from '@/config'
 import { EmulatorWarmup } from '@/features/play'
 import { LanguageSwitch, useI18n } from '@/shared/i18n'
 import { describeLastPlayed, readLastPlayed } from '@/shared/lastPlayed'
+import { useInstallPrompt } from '@/shared/pwa/installPrompt'
 import { CompatibilityBadge } from '@/shared/ui'
 import { CATALOG } from './catalog'
 import { initials } from './initials'
@@ -12,6 +13,7 @@ import styles from './LibraryScreen.module.css'
 /** The home screen: every game Pixelito offers, with one obvious action each. */
 export function LibraryScreen() {
   const { t, locale } = useI18n()
+  const { canInstall, install } = useInstallPrompt()
   const now = Date.now()
   const lastPlayedText = (gameId: string) => {
     const timestamp = readLastPlayed(gameId)
@@ -23,7 +25,14 @@ export function LibraryScreen() {
     <div className={styles.screen}>
       <header className={styles.bar}>
         <h1 className={styles.logo}>{PRODUCT_NAME}</h1>
-        <LanguageSwitch />
+        <div className={styles.actions}>
+          {canInstall && (
+            <button type="button" className={styles.install} onClick={() => void install()}>
+              {t.library.install}
+            </button>
+          )}
+          <LanguageSwitch />
+        </div>
       </header>
       <EmulatorWarmup />
       <main className={styles.main}>

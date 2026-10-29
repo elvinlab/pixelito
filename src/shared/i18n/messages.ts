@@ -7,6 +7,7 @@ const es = {
     playGame: (title: string) => `Jugar a ${title}`,
     source: 'Código fuente',
     neverPlayed: 'Sin jugar todavía',
+    install: 'Instalar',
     lastPlayed: (when: string) => `Jugado ${when}`,
   },
   play: {
@@ -61,6 +62,7 @@ const en: Messages = {
     playGame: (title) => `Play ${title}`,
     source: 'Source code',
     neverPlayed: 'Not played yet',
+    install: 'Install',
     lastPlayed: (when) => `Played ${when}`,
   },
   play: {
