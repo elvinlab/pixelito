@@ -1,4 +1,6 @@
 .screen {
+  display: flex;
+  flex-direction: column;
   min-height: 100dvh;
 }
 
@@ -7,7 +9,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
+  /* Same left edge as the content column below, so the bar and the games line up on wide screens. */
+  padding: var(--space-3) max(var(--space-4), calc((100% - 960px) / 2 + var(--space-4)));
   background: var(--banner);
   border-bottom: var(--border);
 }
@@ -21,6 +24,8 @@
 }
 
 .main {
+  flex: 1;
+  width: 100%;
   max-width: 960px;
   margin: 0 auto;
   padding: var(--space-5) var(--space-4);
@@ -43,6 +48,7 @@
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -64,7 +70,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 96px;
+  align-self: stretch;
   min-height: var(--target);
   margin-top: var(--space-2);
   padding: 0 var(--space-5);
@@ -75,9 +81,48 @@
   text-decoration: none;
 }
 
+.play::after {
+  /* The whole card is the tap target; the button stays as the visible action. */
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
 .play:active {
   border-bottom-width: 2px;
   transform: translateY(3px);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    background: var(--card-hover);
+  }
+}
+
+.card:has(.play:focus-visible) {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.play:focus-visible {
+  outline: none;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.source {
+  color: var(--text-secondary);
+  text-underline-offset: 3px;
 }
 
 .visuallyHidden {

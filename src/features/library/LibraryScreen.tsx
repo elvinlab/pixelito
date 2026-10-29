@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import { playHref } from '@/app/router'
-import { PRODUCT_NAME } from '@/config'
+import { PRODUCT_NAME, SOURCE_URL } from '@/config'
 import { EmulatorWarmup } from '@/features/play'
 import { LanguageSwitch, useI18n } from '@/shared/i18n'
 import { CompatibilityBadge } from '@/shared/ui'
@@ -36,6 +36,12 @@ export function LibraryScreen() {
           ))}
         </ul>
       </main>
+      <footer className={styles.footer}>
+        <span>by elvinlab</span>
+        <a className={styles.source} href={SOURCE_URL}>
+          {t.library.source}
+        </a>
+      </footer>
     </div>
   )
 }

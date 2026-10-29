@@ -16,3 +16,6 @@ export const EMULATOR_URL = (
  * not work.
  */
 export const EMULATOR_ORIGIN = new URL(EMULATOR_URL).origin
+
+/** Public repository, linked from the library footer. */
+export const SOURCE_URL = 'https://github.com/elvinlab/pixelito'

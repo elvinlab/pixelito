@@ -5,6 +5,7 @@ const es = {
     heading: 'Biblioteca',
     play: 'Jugar',
     playGame: (title: string) => `Jugar a ${title}`,
+    source: 'Código fuente',
   },
   play: {
     back: '← Biblioteca',
@@ -56,6 +57,7 @@ const en: Messages = {
     heading: 'Library',
     play: 'Play',
     playGame: (title) => `Play ${title}`,
+    source: 'Source code',
   },
   play: {
     back: '← Library',
