@@ -46,6 +46,12 @@ const es = {
     body: 'No encontramos esa página ni ese juego.',
     back: 'Volver a la biblioteca',
   },
+  theme: {
+    label: 'Tema',
+    night: 'Noche',
+    dmg: 'Portátil',
+    light: 'Día',
+  },
   language: {
     label: 'Idioma',
     es: 'Español',
@@ -101,6 +107,12 @@ const en: Messages = {
     title: 'Nothing here',
     body: 'We could not find that page or game.',
     back: 'Back to the library',
+  },
+  theme: {
+    label: 'Theme',
+    night: 'Night',
+    dmg: 'Handheld',
+    light: 'Day',
   },
   language: {
     label: 'Language',

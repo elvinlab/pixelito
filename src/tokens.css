@@ -1,5 +1,6 @@
 /* Design tokens. Provisional: see docs/notes/visual-direction.md. */
-:root {
+:root,
+[data-theme="night"] {
   color-scheme: dark;
 
   --page: #07070f;
@@ -31,10 +32,62 @@
 
   --target: 44px;
   --border: 2px solid var(--line);
+  --dither: rgb(0 0 0 / 0.18);
 
   /* Brand fonts are self-hosted (Fontsource, Latin subset); the rest is the fallback while they load. */
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-display: "Pixelify Sans", "IBM Plex Sans", system-ui, sans-serif;
   --font-pixel: "Press Start 2P", ui-monospace, monospace;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Handheld: a four-shade green LCD. */
+:root[data-theme="dmg"],
+[data-theme="dmg"] {
+  --page: #0b1f0b;
+  --banner: #0f2a0f;
+  --card: #143314;
+  --card-hover: #1d441d;
+  --control-edge: #6a9a2a;
+  --line: #2f5f2f;
+
+  --text: #e6f5c8;
+  --text-secondary: #bcd98a;
+  --text-muted: #8fae60;
+
+  --violet: #9bbc0f;
+  --button: #3f7a15;
+  --button-edge: #25490c;
+  --cyan: #c6f26b;
+  --pink: #d9e86a;
+  --playable: #7ddf64;
+  --partial: #e5d35a;
+  --does-not-run: #ff8a7a;
+}
+
+/* Day: light surfaces, the same violet accent. */
+:root[data-theme="light"],
+[data-theme="light"] {
+  color-scheme: light;
+
+  --page: #f4f1ff;
+  --banner: #ffffff;
+  --card: #ffffff;
+  --card-hover: #ece8fb;
+  --control-edge: #6d5fd1;
+  --line: #cfc8ee;
+  --dither: rgb(0 0 0 / 0.06);
+
+  --text: #1b1830;
+  --text-secondary: #3d3a58;
+  --text-muted: #5d5a78;
+
+  --violet: #5b3fd0;
+  --button: #6d3df0;
+  --button-edge: #4a22b8;
+  --cyan: #0e7490;
+  --pink: #be185d;
+  --playable: #047857;
+  --partial: #a16207;
+  --does-not-run: #be123c;
 }

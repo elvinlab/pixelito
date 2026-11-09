@@ -1,0 +1,39 @@
+.group {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* Each button carries its own data-theme, so the swatch shows that theme's colours. */
+.option {
+  display: grid;
+  place-items: center;
+  width: var(--target);
+  height: var(--target);
+  padding: 0;
+  background: var(--page);
+  border: 2px solid var(--line);
+  cursor: pointer;
+  transition: border-color 120ms ease-out;
+}
+
+.swatch {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, var(--card) 50%, var(--button) 50%);
+  border: 2px solid var(--control-edge);
+}
+
+.option[aria-pressed="true"] {
+  border-color: var(--cyan);
+}

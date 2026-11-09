@@ -5,6 +5,7 @@ import { EmulatorWarmup } from '@/features/play'
 import { LanguageSwitch, useI18n } from '@/shared/i18n'
 import { describeLastPlayed, readLastPlayed } from '@/shared/lastPlayed'
 import { useInstallPrompt } from '@/shared/pwa/installPrompt'
+import { ThemeSwitch } from '@/shared/theme'
 import { CompatibilityBadge } from '@/shared/ui'
 import { CATALOG } from './catalog'
 import { initials } from './initials'
@@ -38,11 +39,11 @@ export function LibraryScreen() {
       <main className={styles.main}>
         <h2 className={styles.heading}>{t.library.heading}</h2>
         <ul className={styles.grid}>
-          {CATALOG.map((game) => (
+          {CATALOG.map((game, index) => (
             <li
               key={game.id}
               className={styles.card}
-              style={{ '--accent': game.accent } as CSSProperties}
+              style={{ '--accent': game.accent, '--index': index } as CSSProperties}
             >
               <div className={styles.label} aria-hidden="true">
                 {game.cover ? (
@@ -67,6 +68,9 @@ export function LibraryScreen() {
         <a className={styles.source} href={SOURCE_URL}>
           {t.library.source}
         </a>
+        <div className={styles.themes}>
+          <ThemeSwitch />
+        </div>
       </footer>
     </div>
   )
