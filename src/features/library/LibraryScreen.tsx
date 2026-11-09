@@ -37,6 +37,7 @@ export function LibraryScreen() {
       </header>
       <EmulatorWarmup />
       <main className={styles.main}>
+        <p className={styles.tagline}>{t.library.tagline}</p>
         <h2 className={styles.heading}>{t.library.heading}</h2>
         <ul className={styles.grid}>
           {CATALOG.map((game, index) => (

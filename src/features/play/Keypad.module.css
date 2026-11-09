@@ -80,9 +80,18 @@
   pointer-events: none;
 }
 
+.key {
+  transition: background-color 80ms ease-out;
+}
+
 .key:active {
   border-bottom-width: 2px;
   transform: translateY(3px);
+  background: color-mix(in oklab, var(--card-hover) 70%, var(--violet));
+}
+
+.ok:active {
+  background: color-mix(in oklab, var(--button) 80%, white);
 }
 
 .ok {

@@ -2,6 +2,7 @@ import type { Locale } from './locale'
 
 const es = {
   library: {
+    tagline: 'Tus juegos retro, en el bolsillo.',
     heading: 'Biblioteca',
     play: 'Jugar',
     playGame: (title: string) => `Jugar a ${title}`,
@@ -64,6 +65,7 @@ export type Messages = typeof es
 
 const en: Messages = {
   library: {
+    tagline: 'Retro games, right in your pocket.',
     heading: 'Library',
     play: 'Play',
     playGame: (title) => `Play ${title}`,
