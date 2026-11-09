@@ -43,3 +43,14 @@ button {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Opacity only: a transform here would also move the emulator iframe. */
+.screen-enter {
+  animation: screen-in 200ms ease-out;
+}
+
+@keyframes screen-in {
+  from {
+    opacity: 0;
+  }
+}

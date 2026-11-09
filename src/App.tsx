@@ -6,10 +6,20 @@ import { PlayScreen } from '@/features/play'
 /** Root component: shows the screen the URL hash asks for. */
 export function App() {
   const route = useRoute()
-  if (route.name === 'library') return <LibraryScreen />
-  if (route.name === 'play') {
-    const game = findGame(route.gameId)
-    return game ? <PlayScreen game={game} /> : <NotFoundScreen />
-  }
-  return <NotFoundScreen />
+  const game = route.name === 'play' ? findGame(route.gameId) : undefined
+  // Keyed by screen, so each one fades in when it replaces the last.
+  const screen =
+    route.name === 'library' ? (
+      <LibraryScreen />
+    ) : game ? (
+      <PlayScreen game={game} />
+    ) : (
+      <NotFoundScreen />
+    )
+  const key = route.name === 'play' ? `play:${route.gameId}` : route.name
+  return (
+    <div key={key} className="screen-enter">
+      {screen}
+    </div>
+  )
 }
