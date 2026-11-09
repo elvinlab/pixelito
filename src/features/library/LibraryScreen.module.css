@@ -162,6 +162,50 @@
   transform: translateY(3px);
 }
 
+/* Narrow screens: a compact row (cartridge label left, details right) so several games fit at once. */
+@media (max-width: 559px) {
+  .card {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    column-gap: var(--space-3);
+    row-gap: var(--space-2);
+    align-items: start;
+    padding: var(--space-3);
+  }
+
+  .card > * {
+    grid-column: 2;
+  }
+
+  .card > .label {
+    grid-column: 1;
+    grid-row: 1 / span 4;
+    align-self: stretch;
+    height: auto;
+    min-height: 96px;
+    margin: calc(var(--space-3) * -1) 0 calc(var(--space-3) * -1) calc(var(--space-3) * -1);
+  }
+
+  .card > span,
+  .card > .play {
+    justify-self: start;
+  }
+
+  .initials {
+    font-size: 18px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .play {
+    align-self: start;
+    margin-top: 0;
+    padding: 0 var(--space-4);
+  }
+}
+
 @media (hover: hover) {
   .card:hover {
     background: var(--card-hover);
