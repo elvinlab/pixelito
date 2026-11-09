@@ -1,14 +1,18 @@
 import { useI18n } from '@/shared/i18n'
+import styles from './NotFoundScreen.module.css'
 import { LIBRARY_HREF } from './router'
 
 /** Shown for any route or game id Pixelito does not know. */
 export function NotFoundScreen() {
   const { t } = useI18n()
   return (
-    <main style={{ padding: 'var(--space-5) var(--space-4)' }}>
-      <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 400 }}>{t.notFound.title}</h1>
-      <p>{t.notFound.body}</p>
-      <a href={LIBRARY_HREF} style={{ color: 'var(--violet)' }}>
+    <main className={styles.screen}>
+      <p className={styles.code} aria-hidden="true">
+        404
+      </p>
+      <h1 className={styles.title}>{t.notFound.title}</h1>
+      <p className={styles.body}>{t.notFound.body}</p>
+      <a className={styles.back} href={LIBRARY_HREF}>
         {t.notFound.back}
       </a>
     </main>
