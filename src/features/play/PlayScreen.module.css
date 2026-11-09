@@ -48,7 +48,15 @@
   cursor: pointer;
 }
 
+.content {
+  /* A landmark for assistive tech that leaves the screen's own layout alone. */
+  display: contents;
+}
+
 .stage {
+  /* The stage is always black, so its text uses fixed colours that read on black in every theme. */
+  --cyan: #22d3ee;
+  --violet: #a78bfa;
   position: relative;
   flex: 1;
   width: 100%;

@@ -98,35 +98,37 @@ export function PlayScreen({ game }: { readonly game: Game }) {
           </button>
         )}
       </header>
-      <div className={styles.stage}>
-        <EmulatorFrame
-          className={`${styles.frame} ${started || slow ? styles.shown : ''}`}
-          frameRef={frameRef}
-          state={state}
-          title={t.play.screen}
-          jar={game.emulatorJar}
-        />
-        {exportFailed && (
-          <p className={styles.alert} role="alert">
-            {t.play.exportFailed}
-          </p>
-        )}
-        {!started && (
-          <div className={styles.status}>
-            <div className={styles.loader} aria-hidden="true">
-              <span />
-              <span />
-              <span />
-              <span />
+      <main className={styles.content}>
+        <div className={styles.stage}>
+          <EmulatorFrame
+            className={`${styles.frame} ${started || slow ? styles.shown : ''}`}
+            frameRef={frameRef}
+            state={state}
+            title={t.play.screen}
+            jar={game.emulatorJar}
+          />
+          {exportFailed && (
+            <p className={styles.alert} role="alert">
+              {t.play.exportFailed}
+            </p>
+          )}
+          {!started && (
+            <div className={styles.status}>
+              <div className={styles.loader} aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+              <p>{slow ? t.play.slow : t.play.loading}</p>
             </div>
-            <p>{slow ? t.play.slow : t.play.loading}</p>
-          </div>
-        )}
-      </div>
-      <p className={styles.hint} role="status">
-        {started && idle && !pressed ? t.play.idle : ''}
-      </p>
-      <Keypad onKey={sendKey} />
+          )}
+        </div>
+        <p className={styles.hint} role="status">
+          {started && idle && !pressed ? t.play.idle : ''}
+        </p>
+        <Keypad onKey={sendKey} />
+      </main>
     </div>
   )
 }

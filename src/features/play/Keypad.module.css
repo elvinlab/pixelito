@@ -95,6 +95,7 @@
 }
 
 .ok {
+  color: #fff;
   background: var(--button);
   border-color: var(--button);
   border-bottom-color: var(--button-edge);
