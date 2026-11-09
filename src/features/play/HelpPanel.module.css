@@ -1,0 +1,19 @@
+.panel {
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-4);
+  background: var(--card);
+  border-left: var(--border);
+  color: var(--text);
+}
+
+.close {
+  min-height: var(--target);
+  margin-top: var(--space-3);
+  padding: 0 var(--space-4);
+  background: transparent;
+  color: var(--cyan);
+  border: var(--border);
+  font: inherit;
+  cursor: pointer;
+}

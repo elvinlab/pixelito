@@ -37,8 +37,20 @@
   font-weight: 400;
 }
 
-.export {
+.help {
+  flex: none;
   margin-inline-start: auto;
+  min-width: var(--target);
+  min-height: var(--target);
+  background: transparent;
+  color: var(--cyan);
+  border: var(--border);
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.export {
   min-height: var(--target);
   padding: 0 var(--space-3);
   background: transparent;
@@ -76,6 +88,11 @@
 .frame.shown {
   opacity: 1;
   transition: opacity 200ms ease-out;
+}
+
+.frame.covered {
+  /* A frame that is not rendered cannot take keyboard focus, which the emulator otherwise grabs back by itself. */
+  display: none;
 }
 
 .hint {
@@ -167,6 +184,39 @@
     grid-column: 1;
     grid-row: 3;
   }
+
+  /* Without the on-screen keys the game gets the whole width. */
+  .stage:last-child,
+  .hint:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.screen.withPanel {
+  /* Desktop with the controls open: the game and its keys on the left, the instructions on the right. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  align-items: stretch;
+}
+
+.withPanel .bar {
+  grid-column: 1 / -1;
+}
+
+.withPanel .stage {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.withPanel .hint {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.withPanel > aside {
+  grid-column: 2;
+  grid-row: 2 / span 3;
 }
 
 .alert {

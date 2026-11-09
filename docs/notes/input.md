@@ -25,6 +25,18 @@
 - A live "test your controls" screen is a good, cheap feature (idea from `roylays-plays.md`).
 - Keep Esc and browser shortcuts free; do not capture keys when focus is outside the game.
 
+## Implemented in the app (2026-11-09)
+
+Built in `src/features/play`; the emulator is untouched, the app only translates keys.
+
+- **Physical keyboard** (`keys.ts`, `canonicalKey`): arrows or WASD move, Enter or Space is OK, Z is the left soft key (also F1), X is the right soft key (also F2), Esc is back, `0-9` are digits. Keys held with Ctrl, Meta or Alt stay with the browser. The matching on-screen key lights up while a physical key is held.
+- **Controls help:** a `?` button in the play bar shows the key map for keyboard and touch (`HelpContent.tsx`). The soft keys are explained as doing what the game writes in the bottom corners of its screen.
+  - **Desktop** (width of 900 px or more and a mouse, `(pointer: fine)`): `HelpPanel.tsx`, a side panel next to the game. It is not modal, so every key keeps reaching the game; `?` or its close button toggles it, and the choice is remembered (`pixelito.panel`, open by default).
+  - **Phones and narrow windows:** `HelpSheet.tsx`, a modal sheet that opens by itself the first time any game starts (`pixelito.helpSeen`). While it is open no key reaches the game, so Esc closes the sheet instead of sending Back. The emulator frame is not rendered meanwhile: the emulator calls `display.focus()` whenever its canvas blurs, so a rendered frame (even `inert` or `visibility: hidden`) keeps taking the keyboard back.
+- **On-screen keys** (`controlsPrefs.ts`): shown by default on touch screens (`pointer: coarse`), hidden with a mouse, with a checkbox in the help sheet to override (`pixelito.pad`). The idle hint names Enter instead of OK when they are hidden.
+- **Touch pad:** OK is larger than the arrows, and the numbers toggle reads `123`.
+- **Not done:** a left-handed layout (the D-pad is centred, so mirroring changes nothing), per-game soft key captions (no catalogue data for them yet), gamepad.
+
 ## Risks and unknowns
 
 1. Gamepad needs the Gamepad API polling in the host app; latency and mobile browser support not measured.

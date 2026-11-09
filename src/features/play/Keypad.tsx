@@ -7,6 +7,8 @@ import type { KeyAction } from './useEmulatorBridge'
 
 interface KeypadProps {
   readonly onKey: (action: KeyAction, code: string) => void
+  /** Keys a physical keyboard is holding right now, so the matching on-screen keys light up. */
+  readonly lit?: ReadonlySet<string> | undefined
 }
 
 interface PadKeyProps extends KeypadProps {
@@ -35,7 +37,7 @@ function Arrow({ turns }: { readonly turns: 0 | 1 | 2 | 3 }) {
 }
 
 /** One on-screen key: down on press, up on release, cancel or unmount. */
-function PadKey({ code, label, name, className, onKey }: PadKeyProps) {
+function PadKey({ code, label, name, className, onKey, lit }: PadKeyProps) {
   const held = useRef(false)
 
   const release = () => {
@@ -58,6 +60,7 @@ function PadKey({ code, label, name, className, onKey }: PadKeyProps) {
       type="button"
       className={`${styles.key} ${className ?? ''}`}
       aria-label={name}
+      data-lit={lit?.has(code) || undefined}
       onPointerDown={press}
       onPointerUp={release}
       onPointerCancel={release}
@@ -74,11 +77,11 @@ const DIGIT_ROWS = ['123', '456', '789'] as const
  * Pixelito's own keys: soft keys on the sides, the D-pad in the middle, and a
  * 0-9 tray that takes the D-pad's place so it never covers the game.
  */
-export function Keypad({ onKey }: KeypadProps) {
+export function Keypad({ onKey, lit }: KeypadProps) {
   const { t } = useI18n()
   const [numbers, setNumbers] = useState(false)
   const key = (code: string, label: ReactNode, name: string, className?: string) => (
-    <PadKey code={code} label={label} name={name} className={className} onKey={onKey} />
+    <PadKey code={code} label={label} name={name} className={className} onKey={onKey} lit={lit} />
   )
 
   return (

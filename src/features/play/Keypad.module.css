@@ -29,7 +29,9 @@
 
 .dpad {
   display: grid;
-  grid-template-columns: repeat(3, var(--target));
+  /* A roomier middle column and row make OK, the key pressed most, the easiest to hit. */
+  grid-template-columns: var(--target) calc(var(--target) * 1.3) var(--target);
+  grid-template-rows: var(--target) calc(var(--target) * 1.3) var(--target);
   grid-template-areas:
     ". up ."
     "left ok right"
@@ -84,17 +86,21 @@
   transition: background-color 80ms ease-out;
 }
 
-.key:active {
+.key:active,
+.key[data-lit] {
   border-bottom-width: 2px;
   transform: translateY(3px);
   background: color-mix(in oklab, var(--card-hover) 70%, var(--violet));
 }
 
-.ok:active {
+.ok:active,
+.ok[data-lit] {
   background: color-mix(in oklab, var(--button) 80%, white);
 }
 
 .ok {
+  font-size: 15px;
+  font-weight: 700;
   color: #fff;
   background: var(--button);
   border-color: var(--button);

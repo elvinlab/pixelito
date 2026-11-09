@@ -1,0 +1,40 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in oklab, #000 70%, transparent);
+  animation: fade-in 160ms ease-out;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 420px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: var(--space-5) var(--space-4);
+  background: var(--card);
+  border: var(--border);
+  color: var(--text);
+}
+
+.close {
+  width: 100%;
+  min-height: var(--target);
+  margin-top: var(--space-3);
+  background: var(--button);
+  color: #fff;
+  border: 0;
+  border-bottom: 4px solid var(--button-edge);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}

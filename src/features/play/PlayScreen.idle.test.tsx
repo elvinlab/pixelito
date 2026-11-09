@@ -3,6 +3,7 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Game } from '@/domain/game'
 import { I18nProvider } from '@/shared/i18n'
+import { markHelpSeen } from './controlsPrefs'
 import { PlayScreen } from './PlayScreen'
 import type { EmulatorState } from './useEmulatorBridge'
 
@@ -38,9 +39,11 @@ describe('PlayScreen idle hint', () => {
   beforeEach(() => {
     vi.useFakeTimers()
     bridge.state = 'started'
+    markHelpSeen()
   })
   afterEach(() => {
     cleanup()
+    localStorage.clear()
     vi.useRealTimers()
   })
 
