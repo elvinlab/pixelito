@@ -59,6 +59,23 @@
   border: 0;
 }
 
+.hint {
+  flex: none;
+  min-height: 28px;
+  margin: 0;
+  padding: var(--space-1) var(--space-4);
+  color: var(--cyan);
+  font-size: 13px;
+  text-align: center;
+  animation: hint-in 240ms ease-out;
+}
+
+@keyframes hint-in {
+  from {
+    opacity: 0;
+  }
+}
+
 .status {
   position: absolute;
   inset: auto 0 var(--space-3);
@@ -75,7 +92,7 @@
   .screen {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
     align-items: stretch;
   }
 
@@ -86,5 +103,10 @@
   .stage {
     grid-column: 1;
     grid-row: 2;
+  }
+
+  .hint {
+    grid-column: 1;
+    grid-row: 3;
   }
 }

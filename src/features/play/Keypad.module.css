@@ -100,7 +100,7 @@
 @media (orientation: landscape) and (max-height: 520px) {
   .pad {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 2 / span 2;
     align-content: center;
     width: auto;
     padding: var(--space-3) max(var(--space-4), env(safe-area-inset-right)) var(--space-3)

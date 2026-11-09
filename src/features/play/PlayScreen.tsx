@@ -111,9 +111,11 @@ export function PlayScreen({ game }: { readonly game: Game }) {
             {t.play.exportFailed}
           </p>
         )}
-        {started && idle && !pressed && <p className={styles.status}>{t.play.idle}</p>}
         {!started && <p className={styles.status}>{slow ? t.play.slow : t.play.loading}</p>}
       </div>
+      <p className={styles.hint} role="status">
+        {started && idle && !pressed ? t.play.idle : ''}
+      </p>
       <Keypad onKey={sendKey} />
     </div>
   )
