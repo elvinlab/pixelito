@@ -29,7 +29,7 @@
 
 Built in `src/features/play`; the emulator is untouched, the app only translates keys.
 
-- **Physical keyboard** (`keys.ts`, `canonicalKey`): arrows or WASD move, Enter or Space is OK, Z is the left soft key (also F1), X is the right soft key (also F2), Esc is back, `0-9` are digits. Keys held with Ctrl, Meta or Alt stay with the browser. The matching on-screen key lights up while a physical key is held.
+- **Physical keyboard** (`keys.ts`, `canonicalKey`, mirrored in the emulator fork's `pixelito-keys.js` for when the frame has focus, which is the usual case): arrows or WASD move, F, Enter or Space is OK, Q is the left soft key (also F1), E is the right soft key (also F2), Esc is back, `0-9` are digits. Keys held with Ctrl, Meta or Alt stay with the browser. The matching on-screen key lights up while a physical key is held.
 - **Controls help:** a `?` button in the play bar shows the key map for keyboard and touch (`HelpContent.tsx`). The soft keys are explained as doing what the game writes in the bottom corners of its screen.
   - **Desktop** (width of 900 px or more and a mouse, `(pointer: fine)`): `HelpPanel.tsx`, a side panel next to the game. It is not modal, so every key keeps reaching the game; `?` or its close button toggles it, and the choice is remembered (`pixelito.panel`, open by default).
   - **Phones and narrow windows:** `HelpSheet.tsx`, a modal sheet that opens by itself the first time any game starts (`pixelito.helpSeen`). While it is open no key reaches the game, so Esc closes the sheet instead of sending Back. The emulator frame is not rendered meanwhile: the emulator calls `display.focus()` whenever its canvas blurs, so a rendered frame (even `inert` or `visibility: hidden`) keeps taking the keyboard back.

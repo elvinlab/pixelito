@@ -10,6 +10,13 @@ Raw material for posts, written as the work happens. One entry per idea: problem
 - **Outcome:** do not render the frame while a modal is open (`display: none`), since an unrendered element cannot take focus. On desktop the help became a non-modal side panel, so the problem does not exist there.
 - **Lesson:** headless tests with a mocked frame passed; only a real browser run against the real emulator found it. Check which frame owns keyboard focus before blaming your own handlers.
 
+## 2026-11-09 — Key aliases that only worked when nobody was playing
+
+- **Problem:** WASD "did nothing" in a game, although unit tests for the aliases were green and the arrows worked.
+- **Cause:** the aliases lived in the host page's `keydown` listener. Once the player clicks the game, keyboard focus is inside the cross-origin emulator frame, so the page never sees the keys, and the emulator's own table sent `KeyW` to the game as the letter W.
+- **Outcome:** the same alias table now also lives in the emulator fork, applied before its key lookup, with one comment on each side saying to change both. Checked by logging the code the emulator publishes for every alias, with the frame focused.
+- **Lesson:** a feature that depends on where focus is needs a test with the real focus owner, not a simulated event on `window`. Also: when you embed something, ask who receives the key before you write the handler.
+
 ## 2026-11-09 — Phone keys are not obvious in 2026
 
 - **Problem:** the on-screen keys (soft keys L/R, OK, `*`, `#`, `5` to confirm) confused the owner, who built the app.

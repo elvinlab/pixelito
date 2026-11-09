@@ -35,8 +35,9 @@ describe('keyForGame', () => {
 
 describe('canonicalKey', () => {
   it.each([
-    ['KeyZ', 'F1'],
-    ['KeyX', 'F2'],
+    ['KeyQ', 'F1'],
+    ['KeyE', 'F2'],
+    ['KeyF', 'Enter'],
     ['Space', 'Enter'],
     ['KeyW', 'ArrowUp'],
     ['KeyA', 'ArrowLeft'],
@@ -48,7 +49,7 @@ describe('canonicalKey', () => {
     expect(canonicalKey(code)).toBe(code),
   )
 
-  it.each(['KeyB', 'Tab', 'constructor', ''])('has no key for %s', (code) =>
+  it.each(['KeyB', 'KeyZ', 'KeyX', 'Tab', 'constructor', ''])('has no key for %s', (code) =>
     expect(canonicalKey(code)).toBeUndefined(),
   )
 })

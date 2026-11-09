@@ -111,8 +111,9 @@ describe('PlayScreen physical keyboard', () => {
   beforeEach(() => markHelpSeen())
 
   it.each([
-    ['KeyZ', 'F1'],
-    ['KeyX', 'F2'],
+    ['KeyQ', 'F1'],
+    ['KeyE', 'F2'],
+    ['KeyF', 'Enter'],
     ['Space', 'Enter'],
     ['KeyW', 'ArrowUp'],
   ])('sends %s as %s', (code, sent) => {

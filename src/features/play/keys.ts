@@ -19,10 +19,15 @@ const DIGITS = /^Digit[0-9]$/
 
 const FORWARDED = new Set<string>(Object.values(KEY))
 
-/** Friendlier physical keys that stand in for the phone keys: WASD, Space, and Z/X for the soft keys. */
+/**
+ * Friendlier physical keys that stand in for the phone keys: WASD to move, F or Space for OK, Q and E
+ * for the soft keys. The emulator keeps the same table (`pixelito-keys.js` in the emulator fork) for
+ * when its frame has keyboard focus, so change both together.
+ */
 const ALIASES: Readonly<Record<string, string>> = {
-  KeyZ: KEY.softLeft,
-  KeyX: KEY.softRight,
+  KeyQ: KEY.softLeft,
+  KeyE: KEY.softRight,
+  KeyF: KEY.ok,
   Space: KEY.ok,
   KeyW: KEY.up,
   KeyA: KEY.left,
